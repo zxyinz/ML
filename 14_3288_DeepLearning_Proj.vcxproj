@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1CE20D86-B456-48C8-810F-1B040A77BC76}</ProjectGuid>
+    <RootNamespace>My14_3288_DeepLearning_Proj</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>F:\Software\OpenGL SDK\glew-1.10.0\include;F:\Software\OpenGL SDK\GLUT;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Software\OpenGL SDK\GLUT;F:\Software\OpenGL SDK\glew-1.10.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>F:\Software\OpenGL SDK\glew-1.10.0\include;F:\Software\OpenGL SDK\GLUT;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Software\OpenGL SDK\glew-1.10.0\lib\Release\Win32;F:\Software\OpenGL SDK\GLUT;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="14_3288_DeepLearning_Main.cpp" />
+    <ClCompile Include="Core\cVectorManager.cpp" />
+    <ClCompile Include="Core\SanContainer.cpp" />
+    <ClCompile Include="Core\SanMathematics.cpp" />
+    <ClCompile Include="Core\SanMemory.cpp" />
+    <ClCompile Include="Core\SanString.cpp" />
+    <ClCompile Include="Device\cSanTerminalDeviceWin.cpp" />
+    <ClCompile Include="FileIO\cBMPReader.cpp" />
+    <ClCompile Include="FileIO\SanFileIO.cpp" />
+    <ClCompile Include="ML\cArtificialNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\cDeepNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\cRestrictedRoltzmannMachineAlgorithm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\cVectorManager.h" />
+    <ClInclude Include="Core\cVectorManagerDef.h" />
+    <ClInclude Include="Core\MsgDef.h" />
+    <ClInclude Include="Core\SanContainer.h" />
+    <ClInclude Include="Core\SanMathematics.h" />
+    <ClInclude Include="Core\SanMemory.h" />
+    <ClInclude Include="Core\SanString.h" />
+    <ClInclude Include="Core\SanTypes.h" />
+    <ClInclude Include="Core\WinDataDef.h" />
+    <ClInclude Include="Device\cSanTerminalDeviceWin.h" />
+    <ClInclude Include="Device\SanDevices.h" />
+    <ClInclude Include="FileIO\cBMPReader.h" />
+    <ClInclude Include="FileIO\FileLoader.h" />
+    <ClInclude Include="FileIO\SanFileIO.h" />
+    <ClInclude Include="ML\cArtificialNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\cDeepNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
+    <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="TrainingDataPreProcessing.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

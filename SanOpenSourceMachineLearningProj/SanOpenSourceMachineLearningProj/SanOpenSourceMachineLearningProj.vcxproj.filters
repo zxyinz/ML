@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{f3eb3c9b-c7a2-460e-948c-4b0144cc5a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{352e2bbb-c0e8-494b-bba6-d10907f88405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO">
+      <UniqueIdentifier>{f042c8a6-b8a0-43d3-a4d4-edb04c9509f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileIO">
+      <UniqueIdentifier>{0100e74c-efa4-4c97-9d1b-c60677c00cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ML">
+      <UniqueIdentifier>{bca0c34b-ab36-40d4-bde0-9c86773dea49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ML">
+      <UniqueIdentifier>{ff1aa3bc-e4ab-4d8e-9497-14da2b5f857d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{abfb8299-c6e7-4daf-a82e-2b8e7dcbd3e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{5c21ed1d-b06f-41bc-9dec-f9a14685dff0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\cVectorManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\cVectorManagerDef.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MsgDef.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SanContainer.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SanMathematics.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SanMemory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SanString.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SanTypes.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\WinDataDef.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO\cBMPReader.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO\FileLoader.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO\SanFileIO.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cArtificialNeuralNetworkAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cDeepNeuralNetworkAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\PixelBasedRenderFunc.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\SanGraphics.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrainingDataPreProcessing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\cVectorManager.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SanContainer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SanMathematics.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SanMemory.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SanString.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO\cBMPReader.cpp">
+      <Filter>Source Files\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO\SanFileIO.cpp">
+      <Filter>Source Files\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cArtificialNeuralNetworkAlgorithm.cpp">
+      <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cDeepNeuralNetworkAlgorithm.cpp">
+      <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.cpp">
+      <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cRestrictedRoltzmannMachineAlgorithm.cpp">
+      <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\PixelBasedRenderFunc.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\SanGraphics.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="14_3288_DeepLearning_Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

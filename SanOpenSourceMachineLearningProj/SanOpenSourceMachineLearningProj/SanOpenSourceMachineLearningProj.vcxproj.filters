@@ -84,9 +84,6 @@
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h">
       <Filter>Header Files\ML</Filter>
     </ClInclude>
-    <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.h">
-      <Filter>Header Files\ML</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\PixelBasedRenderFunc.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>

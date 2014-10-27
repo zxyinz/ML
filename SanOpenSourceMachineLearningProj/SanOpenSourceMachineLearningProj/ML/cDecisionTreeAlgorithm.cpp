@@ -1,6 +1,7 @@
 #include"cDecisionTreeAlgorithm.h"
 using namespace std;
 using namespace San;
+using namespace San::MachineLearning;
 cDecisionTreeAlgorithm::cDecisionTreeAlgorithm()
 	:m_pTreeRoot(nullptr)
 {

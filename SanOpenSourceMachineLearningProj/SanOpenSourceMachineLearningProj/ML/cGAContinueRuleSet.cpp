@@ -1,6 +1,7 @@
 #include"cGAContinueRuleSet.h"
 using namespace std;
 using namespace San;
+using namespace San::MachineLearning;
 cGAContinueRuleSet::cGAContinueRuleSet()
 	:cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC>(GAHT_RULESET_CONTINUE)
 {

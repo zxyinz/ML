@@ -1,6 +1,7 @@
 #include"cGARuleSet.h"
 using namespace std;
 using namespace San;
+using namespace San::MachineLearning;
 cGARuleSet::cGARuleSet()
 	:cGeneticAlgorithmHypothesis<SString, SString, GARULEDESC>(GAHT_RULESET)
 {

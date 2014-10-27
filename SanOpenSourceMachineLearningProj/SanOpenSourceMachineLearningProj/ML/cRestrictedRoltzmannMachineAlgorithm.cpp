@@ -1,6 +1,7 @@
 #include"cRestrictedBoltzmannMachineAlgorithm.h"
 using namespace std;
 using namespace San;
+using namespace San::MachineLearning;
 cRestrictedBoltzmannMachineAlgorithm::cRestrictedBoltzmannMachineAlgorithm(const uint32 VisibleLayerSize, const uint32 HiddenLayerSize, const sfloat MinBoundary, const sfloat MaxBoundary)
 {
 	this->iUpdateDBMState(VisibleLayerSize, HiddenLayerSize, MinBoundary, MaxBoundary);

@@ -3,6 +3,7 @@
 using namespace std;
 using namespace San;
 using namespace San::Mathematics;
+using namespace San::MachineLearning;
 cArtificialNeuralNetworkAlgorithm::cArtificialNeuralNetworkAlgorithm(const sfloat LearningRate, const sfloat MomentumValue,const sfloat RandomMinBoundary, const sfloat RandomMaxBoundary)
 	:m_LearningRate(LearningRate),
 	m_MomentumValue(MomentumValue)

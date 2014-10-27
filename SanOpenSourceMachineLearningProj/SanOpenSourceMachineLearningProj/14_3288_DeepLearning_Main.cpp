@@ -7,6 +7,7 @@ using namespace std;
 using namespace San;
 using namespace San::Device;
 using namespace San::FileIOStream;
+using namespace San::MachineLearning;
 
 //const SString strTrainingImagePath = _SSTR("train-images.idx3-ubyte");
 //const SString strTrainingLabelPath = _SSTR("train-labels.idx1-ubyte");

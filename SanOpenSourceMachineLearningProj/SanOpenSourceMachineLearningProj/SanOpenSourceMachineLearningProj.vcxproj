@@ -87,7 +87,6 @@
     <ClInclude Include="ML\cGeneticAlgorithmHepothesis.h" />
     <ClInclude Include="ML\cLinearLearningAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
-    <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="TrainingDataPreProcessing.h" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include"cDeepNeuralNetworkAlgorithm.h"
 using namespace std;
 using namespace San;
+using namespace San::MachineLearning;
 cDeepNeuralNetworkAlgorithm::cDeepNeuralNetworkAlgorithm(const sfloat LearningRate, const sfloat MomentumValue, const sfloat RandomMinBoundary, const sfloat RandomMaxBoundary)
 	:cArtificialNeuralNetworkAlgorithm(LearningRate,MomentumValue,RandomMinBoundary,RandomMaxBoundary)
 {

@@ -79,7 +79,13 @@
     <ClInclude Include="Graphics\PixelBasedRenderFunc.h" />
     <ClInclude Include="Graphics\SanGraphics.h" />
     <ClInclude Include="ML\cArtificialNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\cDecisionTreeAlgorithm.h" />
     <ClInclude Include="ML\cDeepNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\cGAContinueRuleSet.h" />
+    <ClInclude Include="ML\cGARuleSet.h" />
+    <ClInclude Include="ML\cGeneticAlgorithm.h" />
+    <ClInclude Include="ML\cGeneticAlgorithmHepothesis.h" />
+    <ClInclude Include="ML\cLinearLearningAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.h" />
     <ClInclude Include="RenderSystem.h" />
@@ -97,7 +103,10 @@
     <ClCompile Include="Graphics\PixelBasedRenderFunc.cpp" />
     <ClCompile Include="Graphics\SanGraphics.cpp" />
     <ClCompile Include="ML\cArtificialNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\cDecisionTreeAlgorithm.cpp" />
     <ClCompile Include="ML\cDeepNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\cGAContinueRuleSet.cpp" />
+    <ClCompile Include="ML\cGARuleSet.cpp" />
     <ClCompile Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.cpp" />
     <ClCompile Include="ML\cRestrictedRoltzmannMachineAlgorithm.cpp" />
   </ItemGroup>

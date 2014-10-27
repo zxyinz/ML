@@ -99,6 +99,24 @@
     <ClInclude Include="TrainingDataPreProcessing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ML\cDecisionTreeAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cGAContinueRuleSet.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cGARuleSet.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cGeneticAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cGeneticAlgorithmHepothesis.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\cLinearLearningAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\cVectorManager.cpp">
@@ -142,6 +160,15 @@
     </ClCompile>
     <ClCompile Include="14_3288_DeepLearning_Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cDecisionTreeAlgorithm.cpp">
+      <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cGAContinueRuleSet.cpp">
+      <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cGARuleSet.cpp">
+      <Filter>Source Files\ML</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

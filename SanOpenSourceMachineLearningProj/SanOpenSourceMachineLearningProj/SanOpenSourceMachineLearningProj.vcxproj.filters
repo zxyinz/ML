@@ -37,6 +37,15 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{5c21ed1d-b06f-41bc-9dec-f9a14685dff0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ProblemSet">
+      <UniqueIdentifier>{527c6719-cc8f-4f15-a5d2-6f934c374796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProblemSet">
+      <UniqueIdentifier>{eae5f7d6-0145-4554-ad1e-8d2c1b99b08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DataSet">
+      <UniqueIdentifier>{df86acb3-1767-4fd1-a1ad-16d12b4eb31d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\cVectorManager.h">
@@ -93,9 +102,6 @@
     <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TrainingDataPreProcessing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ML\cDecisionTreeAlgorithm.h">
       <Filter>Header Files\ML</Filter>
     </ClInclude>
@@ -113,6 +119,18 @@
     </ClInclude>
     <ClInclude Include="ML\cLinearLearningAlgorithm.h">
       <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\DNNTrainingDataPreProcessing.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\cTicTacToeGame.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\TicTacToeDecetorFunc.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\TicTacToeLinearLearningProblem.h">
+      <Filter>Header Files\ProblemSet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,5 +185,16 @@
     <ClCompile Include="ML\cGARuleSet.cpp">
       <Filter>Source Files\ML</Filter>
     </ClCompile>
+    <ClCompile Include="ProblemSet\cTicTacToeGame.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet\TicTacToeLinearLearningProblem.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="DataSet\TicTacToeTrainingDataSet.txt">
+      <Filter>Header Files\DataSet</Filter>
+    </Text>
   </ItemGroup>
 </Project>

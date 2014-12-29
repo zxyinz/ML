@@ -1,8 +1,7 @@
-#include"iostream"
 #include"time.h"
-#include"FileIO\SanFileIO.h"
-#include"ML\cArtificialNeuralNetworkAlgorithm.h"
-#include"ML\cDeepNeuralNetworkAlgorithm.h"
+#include"..\FileIO\SanFileIO.h"
+#include"..\ML\cArtificialNeuralNetworkAlgorithm.h"
+#include"..\ML\cDeepNeuralNetworkAlgorithm.h"
 using namespace std;
 using namespace San;
 using namespace San::FileIOStream;

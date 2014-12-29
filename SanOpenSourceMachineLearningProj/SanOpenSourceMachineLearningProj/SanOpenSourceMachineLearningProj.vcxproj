@@ -44,6 +44,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -56,6 +58,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -87,8 +91,11 @@
     <ClInclude Include="ML\cGeneticAlgorithmHepothesis.h" />
     <ClInclude Include="ML\cLinearLearningAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
+    <ClInclude Include="ProblemSet\cTicTacToeGame.h" />
+    <ClInclude Include="ProblemSet\DNNTrainingDataPreProcessing.h" />
+    <ClInclude Include="ProblemSet\TicTacToeDecetorFunc.h" />
+    <ClInclude Include="ProblemSet\TicTacToeLinearLearningProblem.h" />
     <ClInclude Include="RenderSystem.h" />
-    <ClInclude Include="TrainingDataPreProcessing.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="14_3288_DeepLearning_Main.cpp" />
@@ -108,6 +115,11 @@
     <ClCompile Include="ML\cGARuleSet.cpp" />
     <ClCompile Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.cpp" />
     <ClCompile Include="ML\cRestrictedRoltzmannMachineAlgorithm.cpp" />
+    <ClCompile Include="ProblemSet\cTicTacToeGame.cpp" />
+    <ClCompile Include="ProblemSet\TicTacToeLinearLearningProblem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="DataSet\TicTacToeTrainingDataSet.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

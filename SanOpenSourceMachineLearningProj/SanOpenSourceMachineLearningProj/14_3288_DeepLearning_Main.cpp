@@ -2,7 +2,7 @@
 #include"process.h"
 #include"Device\cSanTerminalDeviceWin.h"
 #include"FileIO\SanFileIO.h"
-#include"TrainingDataPreProcessing.h"
+#include"ProblemSet\DNNTrainingDataPreProcessing.h"
 using namespace std;
 using namespace San;
 using namespace San::Device;
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
 	{
 		ANNNet.iCreateFeatureNode(::gloIToS(seek), UserData, nullptr);
 	}
-
+	
 
 	strOutput = strOutput + _SSTR("ANN Structure: CIFAR-2000 ") + _SSTR("24x24 16x16 8x8 4x4 10") + _SSTR("\r\n\r\n");
 	ANNNet.iCreateLayer(24*24);

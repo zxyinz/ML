@@ -46,6 +46,7 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OpenMPSupport>true</OpenMPSupport>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -60,6 +61,7 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OpenMPSupport>true</OpenMPSupport>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -93,6 +95,7 @@
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
     <ClInclude Include="ProblemSet\cTicTacToeGame.h" />
     <ClInclude Include="ProblemSet\DNNTrainingDataPreProcessing.h" />
+    <ClInclude Include="ProblemSet\ProblemUIFunc.h" />
     <ClInclude Include="ProblemSet\TicTacToeDecetorFunc.h" />
     <ClInclude Include="ProblemSet\TicTacToeLinearLearningProblem.h" />
     <ClInclude Include="RenderSystem.h" />
@@ -113,9 +116,13 @@
     <ClCompile Include="ML\cDeepNeuralNetworkAlgorithm.cpp" />
     <ClCompile Include="ML\cGAContinueRuleSet.cpp" />
     <ClCompile Include="ML\cGARuleSet.cpp" />
-    <ClCompile Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.cpp" />
+    <ClCompile Include="ML\cRestrictedBoltzmannMachineAlgorithmCUDA.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ML\cRestrictedRoltzmannMachineAlgorithm.cpp" />
     <ClCompile Include="ProblemSet\cTicTacToeGame.cpp" />
+    <ClCompile Include="ProblemSet\ProblemUIFunc.cpp" />
     <ClCompile Include="ProblemSet\TicTacToeLinearLearningProblem.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 #include"..\Core\SanContainer.h"
+#include"..\Device\cSanTerminalDeviceWin.h"
 using namespace std;
 using namespace San;
+using namespace San::Device;
 #ifndef __CTICTACTOEGAME_H__
 #define __CTICTACTOEGAME_H__
 
@@ -27,7 +29,7 @@ typedef stPOSITION2D	POSITION2D;
 typedef stPOSITION2D*	lpPOSITION2D;
 
 /*Move Function Pointer Define*/
-typedef POSITION2D(*PLAYERMOVEFUNC)(SHANDLE, SHANDLE);
+typedef POSITION2D(*PLAYERMOVEFUNC)(SHANDLE, SHANDLE, cSanTerminalDevice*);
 
 /*Game Result Type*/
 enum eCHESSRESULT
@@ -81,8 +83,8 @@ public:
 	void	iResetBoardSize(const uint32 BoardSize);
 	/*Call each player to move, one update call one user*/
 	/*Set chess by call iSetChess function*/
-	int32	iUpdateBoard();
-	void	iRenderBoard() const;
+	int32	iUpdateBoard(cSanTerminalDevice* pTerminal);
+	void	iRenderBoard(cSanTerminalDevice* pTerminal) const;
 	void	iClearBoard();
 };
 #endif

@@ -3,19 +3,19 @@ using namespace std;
 using namespace San;
 using namespace San::FileIOStream;
 using namespace San::MachineLearning;
-void TicTacToePrintBoard(const cTicTacToeGame &GameObj, const uint32 LearnerID, const uint32 SuperviserID, cSanTerminalDevice &Terminal)
+void TicTacToePrintBoard(const cTicTacToeGame &GameObj, const uint32 LearnerID, const uint32 SuperviserID, cSanTerminalDevice* pTerminal)
 {
 	::system("cls");
 
-	Terminal.iOutputString(_SSTR("/*--------------- CSE 5693 Machine Learning Assignment 1---------------*/\n"));
-	Terminal.iOutputString(_SSTR("/*REQUIREMENT: TIC - TAC - TOE                                         */\n"));
-	Terminal.iOutputString(_SSTR("/*---------------------------------------------------------------------*/"));
+	pTerminal->iOutputString(_SSTR("/*--------------- CSE 5693 Machine Learning Assignment 1---------------*/\n"));
+	pTerminal->iOutputString(_SSTR("/*REQUIREMENT: TIC - TAC - TOE                                         */\n"));
+	pTerminal->iOutputString(_SSTR("/*---------------------------------------------------------------------*/"));
 
-	GameObj.iRenderBoard();
+	GameObj.iRenderBoard(pTerminal);
 
 	SString strString = SString(_SSTR("First Move : ")) + (LearnerID == 1 ? _SSTR("Learner\tChess: O\n") : _SSTR("Superviser\tChess: O\n"));
 
-	Terminal.iOutputString(strString);
+	pTerminal->iOutputString(strString);
 }
 POSITION2D TicTacToeCreatePlayer(cTicTacToeGame &Game, SHANDLE LearnerParam, SHANDLE SuperviserParam, const uint32 Mode)
 {
@@ -78,7 +78,7 @@ POSITION2D TicTacToeCreatePlayer(cTicTacToeGame &Game, SHANDLE LearnerParam, SHA
 	return POSITION2D(PlayerLearner, PlayerSuperviser);
 }
 /*Superviser Learning Function*/
-void SupervisetLearning(const uint32 Times, const SString strFilePath, cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner)
+void SupervisetLearning(const uint32 Times, const SString strFilePath, cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner, cSanTerminalDevice* pTerminal)
 {
 	if (Times == 0)
 	{
@@ -152,7 +152,7 @@ void SupervisetLearning(const uint32 Times, const SString strFilePath, cTicTacTo
 			}
 			CurrentDataIndex = CurrentDataIndex + 1;
 
-			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 			while (true)
 			{
@@ -173,14 +173,14 @@ void SupervisetLearning(const uint32 Times, const SString strFilePath, cTicTacTo
 					Learner.iRemoveAvailableStateByValue(Pos);
 				}
 
-				TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+				TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 				/*Winner Estimate*/
 				if ((Res & 0xff00) == eCHESSRESULT::SR_WIN)
 				{
 					/*Update Learner State*/
 					((Res & 0xff) == PlayerLearner) ? Learner.iFeedback(WinFeedBack) : Learner.iFeedback(LoseFeedBack);
-					::cout << "Player " << (Res & 0xff) << " Win\n";//, press any key to start a new game...";
+					pTerminal->iOutputString(_SSTR("Player ") + ::gloIToS((Res & 0xff)) + _SSTR(" Win\n"));//, press any key to start a new game...";
 					//::system("pause");
 					break;
 				}
@@ -188,7 +188,7 @@ void SupervisetLearning(const uint32 Times, const SString strFilePath, cTicTacTo
 				{
 					/*Update Learner State*/
 					Learner.iFeedback(DrawFeedBack);
-					::cout << "Game Result: Draw\n";//, press any key to start a new game...";
+					pTerminal->iOutputString(_SSTR("Game Result: Draw\n"));//, press any key to start a new game...";
 					//::system("pause");
 					break;
 				}
@@ -197,7 +197,7 @@ void SupervisetLearning(const uint32 Times, const SString strFilePath, cTicTacTo
 	}
 }
 /*Self Lerning Function*/
-void SelfLearning(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner)
+void SelfLearning(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner, cSanTerminalDevice* pTerminal)
 {
 	if (Times == 0)
 	{
@@ -234,20 +234,20 @@ void SelfLearning(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgor
 		PlayerLearner = Pos.x;
 		PlayerSuperviser = Pos.y;
 
-		TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+		TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 		while (true)
 		{
 			/*One Move*/
 			CurrentPlayer = Game.iGetCurrentPlayerID();
-			Res = Game.iUpdateBoard();
+			Res = Game.iUpdateBoard(pTerminal);
 
 			if (Game.iGetLastMovePosition(Pos))
 			{
 				Learner.iRemoveAvailableStateByValue(Pos);
 			}
 
-			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 			/*Winner Estimate*/
 			if ((Res & 0xff00) == eCHESSRESULT::SR_WIN)
@@ -261,7 +261,7 @@ void SelfLearning(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgor
 				{
 					Learner.iFeedback(LoseFeedBack);
 				}
-				::cout << "Player " << (Res & 0xff) << " Win\n";//, press any key to start a new game...";
+				pTerminal->iOutputString(_SSTR("Player ") + ::gloIToS(Res & 0xff) + _SSTR(" Win\n"));//, press any key to start a new game...";
 				//::system("pause");
 				break;
 			}
@@ -269,7 +269,7 @@ void SelfLearning(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgor
 			{
 				/*Update Learner State*/
 				Learner.iFeedback(DrawFeedBack);
-				::cout << "Game Result: Draw\n";//, press any key to start a new game...";
+				pTerminal->iOutputString(_SSTR("Game Result: Draw\n"));//, press any key to start a new game...";
 				//::system("pause");
 				break;
 			}
@@ -277,7 +277,7 @@ void SelfLearning(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgor
 	}
 }
 /*Context Function*/
-void ContextFunc(cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner)
+void ContextFunc(cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner, cSanTerminalDevice* pTerminal)
 {
 	uint32		PlayerLearner = 0;
 	uint32		PlayerSuperviser = 0;
@@ -309,26 +309,26 @@ void ContextFunc(cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Lea
 		PlayerLearner = Pos.x;
 		PlayerSuperviser = Pos.y;
 
-		TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+		TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 		while (true)
 		{
 			/*One Move*/
 			CurrentPlayer = Game.iGetCurrentPlayerID();
-			Res = Game.iUpdateBoard();
+			Res = Game.iUpdateBoard(pTerminal);
 
 			if (Game.iGetLastMovePosition(Pos))
 			{
 				Learner.iRemoveAvailableStateByValue(Pos);
 			}
 
-			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 			/*Winner Estimate*/
 			if ((Res & 0xff00) == eCHESSRESULT::SR_WIN)
 			{
 				/*Update Learner State*/
-				(Res & 0xff) == PlayerLearner ? cout << "Learner Win\n" : cout << "Superviser Win\n";
+				pTerminal->iOutputString((Res & 0xff) == PlayerLearner ? _SSTR("Learner Win\n") : _SSTR("Superviser Win\n"));
 				::system("pause");
 				break;
 			}
@@ -336,14 +336,14 @@ void ContextFunc(cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Lea
 			{
 				/*Update Learner State*/
 				//Learner.iFeedback(0.0);
-				::cout << "Game Result: Draw\n";//, press any key to start a new game...";
+				pTerminal->iOutputString(_SSTR("Game Result: Draw\n"));//, press any key to start a new game...";
 				::system("pause");
 				break;
 			}
 		}
 	}
 }
-void ContextFuncAIAI(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner)
+void ContextFuncAIAI(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAlgorithm<POSITION2D> &Learner, cSanTerminalDevice* pTerminal)
 {
 	uint32		PlayerLearner = 0;
 	uint32		PlayerSuperviser = 0;
@@ -382,13 +382,13 @@ void ContextFuncAIAI(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAl
 		PlayerLearner = Pos.x;
 		PlayerSuperviser = Pos.y;
 
-		TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+		TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 		while (true)
 		{
 			/*One Move*/
 			CurrentPlayer = Game.iGetCurrentPlayerID();
-			Res = Game.iUpdateBoard();
+			Res = Game.iUpdateBoard(pTerminal);
 
 			if (Game.iGetLastMovePosition(Pos))
 			{
@@ -396,13 +396,13 @@ void ContextFuncAIAI(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAl
 				RandomLearner.iRemoveAvailableStateByValue(Pos);
 			}
 
-			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser);
+			TicTacToePrintBoard(Game, PlayerLearner, PlayerSuperviser, pTerminal);
 
 			/*Winner Estimate*/
 			if ((Res & 0xff00) == eCHESSRESULT::SR_WIN)
 			{
 				/*Update Learner State*/
-				(Res & 0xff) == PlayerLearner ? cout << "Learner Win\n" : cout << "Superviser Win\n";
+				pTerminal->iOutputString((Res & 0xff) == PlayerLearner ? _SSTR("Learner Win\n") : _SSTR("Superviser Win\n"));
 				::system("pause");
 				break;
 			}
@@ -410,7 +410,7 @@ void ContextFuncAIAI(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAl
 			{
 				/*Update Learner State*/
 				//Learner.iFeedback(0.0);
-				::cout << "Game Result: Draw\n";//, press any key to start a new game...";
+				pTerminal->iOutputString(_SSTR("Game Result: Draw\n"));//, press any key to start a new game...";
 				::system("pause");
 				break;
 			}
@@ -419,18 +419,18 @@ void ContextFuncAIAI(const uint32 Times, cTicTacToeGame &Game, cLinearLearningAl
 }
 
 /*Uesr Input Function*/
-POSITION2D GetUserMove(SHANDLE lParam, SHANDLE wParam)
+POSITION2D GetUserMove(SHANDLE lParam, SHANDLE wParam, cSanTerminalDevice* pTerminal)
 {
 	POSITION2D Pos;
 	char Buffer[512];
 	while (true)
 	{
-		::cout << "Player " << ((cTicTacToeGame*) lParam)->iGetCurrentPlayerID() << " Move (x,y):";
+		pTerminal->iOutputString(_SSTR("Player ") + ::gloIToS(((cTicTacToeGame*) lParam)->iGetCurrentPlayerID()) + _SSTR(" Move (x,y):"));
 		::cin >> Buffer;
 		vector<SStringA> Item = ::gloGetStringItemsA(Buffer, ",");
 		if (Item.size() != 2)
 		{
-			::cout << "Invalid Input\n";
+			pTerminal->iOutputString(_SSTR("Invalid Input\n"), STC_WHITE, STC_RED);
 			continue;
 		}
 		Pos.x = ::atoi(Item[0].c_str());
@@ -441,12 +441,12 @@ POSITION2D GetUserMove(SHANDLE lParam, SHANDLE wParam)
 }
 
 /*AI Input Function*/
-POSITION2D GetAIMove(SHANDLE lParam, SHANDLE wParam)
+POSITION2D GetAIMove(SHANDLE lParam, SHANDLE wParam, cSanTerminalDevice* pTerminal)
 {
 	pair<cLinearLearningAlgorithm<POSITION2D>*, bool>* pLearnerParam = (pair<cLinearLearningAlgorithm<POSITION2D>*, bool>*)wParam;
 	if (pLearnerParam == nullptr)
 	{
-		::cout << "Error: The Learner Object Pointer is Empty\n";
+		pTerminal->iOutputString(_SSTR("Error: The Learner Object Pointer is Empty\n"), STC_WHITE, STC_RED);
 		::system("pause");
 		::exit(0);
 	}

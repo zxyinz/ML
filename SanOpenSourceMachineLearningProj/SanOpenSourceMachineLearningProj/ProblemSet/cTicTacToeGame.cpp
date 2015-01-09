@@ -267,7 +267,7 @@ void cTicTacToeGame::iResetBoardSize(const uint32 BoardSize)
 	this->m_CurrentPlayer = 1;
 	this->m_LastMovePosition = POSITION2D(this->m_BoardSize, this->m_BoardSize);
 }
-int32 cTicTacToeGame::iUpdateBoard()
+int32 cTicTacToeGame::iUpdateBoard(cSanTerminalDevice* pTerminal)
 {
 	int32 Res = eCHESSRESULT::SR_INPUT_INVAILD;
 	if (this->m_PlayerArray[this->m_CurrentPlayer - 1].pMoveFunc != nullptr)
@@ -275,50 +275,41 @@ int32 cTicTacToeGame::iUpdateBoard()
 		/*Update current user until the current user move function return a available position*/
 		while (Res == eCHESSRESULT::SR_INPUT_INVAILD)
 		{
-			Res = this->iSetChess(this->m_CurrentPlayer, this->m_PlayerArray[this->m_CurrentPlayer - 1].pMoveFunc((SHANDLE)this, this->m_PlayerArray[this->m_CurrentPlayer - 1].Param));
+			Res = this->iSetChess(this->m_CurrentPlayer, this->m_PlayerArray[this->m_CurrentPlayer - 1].pMoveFunc((SHANDLE)this, this->m_PlayerArray[this->m_CurrentPlayer - 1].Param, pTerminal));
 		}
 		return Res;
 	}
 	return eCHESSRESULT::SR_INPUT_INVAILD;
 }
-void cTicTacToeGame::iRenderBoard() const
+void cTicTacToeGame::iRenderBoard(cSanTerminalDevice* pTerminal) const
 {
-	char ChessSymbol = ' ';
-	char RowSymbolArray [] = "012";
-	::cout << "    0   1   2\n";
-	::cout << "  ¨X¨T¨j¨T¨j¨T¨[\n";
+	schar ChessSymbol = _SSTR(' ');
+	schar RowSymbolArray [] = _SSTR("012");
+	pTerminal->iOutputString(_SSTR("    0   1   2\n"));
+	pTerminal->iOutputString(_SSTR("  ¨X¨T¨j¨T¨j¨T¨[\n"));
 	for (uint32 seek_x = 0; seek_x < this->m_BoardSize; seek_x = seek_x + 1)
 	{
-		::cout << RowSymbolArray[seek_x] << " ¨U";
+		pTerminal->iOutputString(RowSymbolArray[seek_x] + _SSTR(" ¨U"));
 		for (uint32 seek_y = 0; seek_y < this->m_BoardSize; seek_y = seek_y + 1)
 		{
 			switch (this->m_pBoardBuffer[seek_x][seek_y])
 			{
 			case 0:
-				ChessSymbol = ' ';
+				ChessSymbol = _SSTR(' ');
 				break;
 			case 1:
-				ChessSymbol = 'O';
+				ChessSymbol = _SSTR('O');
 				break;
 			case 2:
-				ChessSymbol = 'X';
+				ChessSymbol = _SSTR('X');
 				break;
 			default:
-				ChessSymbol = ' ';
+				ChessSymbol = _SSTR(' ');
 				break;
 			}
-			::cout <<ChessSymbol << " ¨U";
+			pTerminal->iOutputString(ChessSymbol + _SSTR(" ¨U"));
 		}
-		::cout << "\n";
-		/*if ((seek_x + 1) != this->m_BoardSize.x)
-		{
-			::cout << "  ¨d¨T¨p¨T¨p¨T¨g\n";
-		}
-		else
-		{
-			::cout << "  ¨^¨T¨m¨T¨m¨T¨a\n";
-		}*/
-		(seek_x + 1) != this->m_BoardSize ? ::cout << "  ¨d¨T¨p¨T¨p¨T¨g\n" : cout << "  ¨^¨T¨m¨T¨m¨T¨a\n";
+		pTerminal->iOutputString(_SSTR("\n") + ((seek_x + 1) != this->m_BoardSize) ? _SSTR("  ¨d¨T¨p¨T¨p¨T¨g\n") : _SSTR("  ¨^¨T¨m¨T¨m¨T¨a\n"));
 	}
 }
 void cTicTacToeGame::iClearBoard()

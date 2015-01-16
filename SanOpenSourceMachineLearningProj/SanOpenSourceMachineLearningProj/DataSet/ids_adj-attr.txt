@@ -1,0 +1,5 @@
+duration zero one+ ten+ hundred+ thousand+ tenThousand+
+protocol_type tcp udp icmp
+count zero one+ ten+ hundred+ thousand+ tenThousand+
+srv_count zero one+ ten+ hundred+ thousand+ tenThousand+
+class neptune normal

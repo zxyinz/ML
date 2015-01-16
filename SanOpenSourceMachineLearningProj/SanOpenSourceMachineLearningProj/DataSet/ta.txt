@@ -1,0 +1,8 @@
+Sky S R
+Air W C
+Hum N H
+Win S W
+Wat W C
+For S C
+
+Enjoy Yes No

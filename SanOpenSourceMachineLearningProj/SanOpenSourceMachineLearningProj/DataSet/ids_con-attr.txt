@@ -1,0 +1,12 @@
+duration continuous
+protocol-type continuous
+count continuous
+srv-count continuous
+serror-rate continuous
+srv-serror-rate continuous
+rerror-rate continuous
+srv-rerror-rate continuous
+same-srv-rate continuous
+diff-srv-rate continuous
+srv-diff-host-rate continuous
+class neptune normal

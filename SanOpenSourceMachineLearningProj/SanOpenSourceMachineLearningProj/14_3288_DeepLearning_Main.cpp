@@ -24,17 +24,22 @@ int main(int argc, char** argv)
 	Terminal.iOutputString(_SSTR("\tNN                    for Artificial Neural Network Algorithm\r\n"), STC_GREY);
 	Terminal.iOutputString(_SSTR("\tGA                    for Genetic Algorithm\r\n"), STC_GREY);
 	Terminal.iOutputString(_SSTR("\tDNN                   for Deep Neural Network Algorithm\r\n"), STC_GREY);
-	Terminal.iOutputString(_SSTR("Commander> "));
-	::cin.getline(Buffer, 1024);
 
-	SString strCommand = Buffer;
+	while (true)
+	{
+		Terminal.iOutputString(_SSTR("Commander> "));
+		::cin.getline(Buffer, 1024);
 
+		SString strCommand = Buffer;
 
-	if (strCommand == _SSTR("TTT")){ TicTacToeLearningProblem(&Terminal, &strOutput); }
-	//if (strCommand == _SSTR("DT")){ HOPProblem(&Terminal, &strOutput); }
-	//if (strCommand == _SSTR("NN")){ MCProblem(&Terminal, &strOutput); }
-	//if (strCommand == _SSTR("GA")){ CNFProblem(&Terminal, &strOutput); }
-	//if (strCommand == _SSTR("ResolutionAlgorithm")){ ResolutionAlgorithmProblem(&Terminal, &strOutput); }
+		if (strCommand == _SSTR("TTT")){ TicTacToeLearningProblem(&Terminal, &strOutput); break; }
+		if (strCommand == _SSTR("DT")){ DecisionTreeLearningProblem(&Terminal, &strOutput); break; }
+		//if (strCommand == _SSTR("NN")){ MCProblem(&Terminal, &strOutput); break; }
+		//if (strCommand == _SSTR("GA")){ CNFProblem(&Terminal, &strOutput); break; }
+		//if (strCommand == _SSTR("ResolutionAlgorithm")){ ResolutionAlgorithmProblem(&Terminal, &strOutput); break; }
+
+		if (!strCommand.empty()){ Terminal.iOutputString(_SSTR("Error: Invalid command\r\n"), STC_WHITE, STC_RED); }
+	}
 
 	::gloWriteFile(_SSTR("Output.txt"), strOutput);
 	::system("notepad Output.txt");

@@ -1,6 +1,7 @@
 #include"../Device/cSanTerminalDeviceWin.h"
 #include"../FileIO/SanFileIO.h"
 #include"TicTacToeLinearLearningProblem.h"
+#include"DecisionTreeLearningProblem.h"
 using namespace std;
 #pragma once
 #ifndef __PROBLEMUIFUNC_H__
@@ -8,5 +9,7 @@ using namespace std;
 
 /*TicTacToe linear learning main funciton, process order: supervisor learning - self learning - AI,AI test - AI,User test*/
 void TicTacToeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString);
+
+void DecisionTreeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString);
 
 #endif

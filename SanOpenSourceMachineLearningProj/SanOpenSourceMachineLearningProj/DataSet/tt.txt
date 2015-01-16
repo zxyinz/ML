@@ -1,0 +1,5 @@
+S W N S W S Yes
+S W H S W S Yes
+R C H S W C No
+S W H S W C Yes
+S W N H C S No

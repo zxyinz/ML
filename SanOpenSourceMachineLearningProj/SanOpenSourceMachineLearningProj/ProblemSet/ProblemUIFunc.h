@@ -2,9 +2,6 @@
 #include"../FileIO/SanFileIO.h"
 #include"TicTacToeLinearLearningProblem.h"
 using namespace std;
-using namespace San;
-using namespace San::Device;
-using namespace San::MachineLearning;
 #pragma once
 #ifndef __PROBLEMUIFUNC_H__
 #define __PROBLEMUIFUNC_H__

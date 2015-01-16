@@ -1,11 +1,14 @@
 #include"..\Core\SanContainer.h"
 #include"cTicTacToeGame.h"
+#pragma once
+#ifndef __TICTACTOEDETECTORFUNC_H__
+#define __TICTACTOEDETECTORFUNC_H__
 /*Feature Detect Functions*/
-sfloat OrigionalFeatureFunc(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat OrigionalFeatureFunc(const POSITION2D &Pos, const SHANDLE Param)
 {
 	return 1.0;
 }
-sfloat ConnectionDetectorCol(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat ConnectionDetectorCol(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -48,7 +51,7 @@ sfloat ConnectionDetectorCol(const POSITION2D &Pos, const SHANDLE Param)
 	MaxConnection = MaxConnection <= 0.0 ? 0.0 : MaxConnection;
 	return (MaxConnection*MaxConnection) / 9.0;
 }
-sfloat ConnectionDetectorRow(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat ConnectionDetectorRow(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -91,7 +94,7 @@ sfloat ConnectionDetectorRow(const POSITION2D &Pos, const SHANDLE Param)
 	MaxConnection = MaxConnection <= 0.0 ? 0.0 : MaxConnection;
 	return (MaxConnection*MaxConnection) / 9.0;
 }
-sfloat ConnectionDetectorDiag1(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat ConnectionDetectorDiag1(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -121,7 +124,7 @@ sfloat ConnectionDetectorDiag1(const POSITION2D &Pos, const SHANDLE Param)
 	ConnectionCount = ConnectionCount > 0.0 ? ConnectionCount : 0.0;
 	return (ConnectionCount*ConnectionCount) / 9.0;
 }
-sfloat ConnectionDetectorDiag2(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat ConnectionDetectorDiag2(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -155,7 +158,7 @@ sfloat ConnectionDetectorDiag2(const POSITION2D &Pos, const SHANDLE Param)
 	ConnectionCount = ConnectionCount > 0.0 ? ConnectionCount : 0.0;
 	return ConnectionDetectorDiag1(Pos, Param) + (ConnectionCount*ConnectionCount) / 9.0;
 }
-sfloat OpponentConnectionDetectorCol(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat OpponentConnectionDetectorCol(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -198,7 +201,7 @@ sfloat OpponentConnectionDetectorCol(const POSITION2D &Pos, const SHANDLE Param)
 	MaxConnection = MaxConnection <= 0.0 ? 0.0 : MaxConnection;
 	return (MaxConnection*MaxConnection) / 9.0;
 }
-sfloat OpponentConnectionDetectorRow(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat OpponentConnectionDetectorRow(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -241,7 +244,7 @@ sfloat OpponentConnectionDetectorRow(const POSITION2D &Pos, const SHANDLE Param)
 	MaxConnection = MaxConnection <= 0.0 ? 0.0 : MaxConnection;
 	return (MaxConnection*MaxConnection) / 9.0;
 }
-sfloat OpponentConnectionDetectorDiag1(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat OpponentConnectionDetectorDiag1(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -271,7 +274,7 @@ sfloat OpponentConnectionDetectorDiag1(const POSITION2D &Pos, const SHANDLE Para
 	ConnectionCount = ConnectionCount > 0.0 ? ConnectionCount : 0.0;
 	return (ConnectionCount*ConnectionCount) / 9.0;
 }
-sfloat OpponentConnectionDetectorDiag2(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat OpponentConnectionDetectorDiag2(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -305,7 +308,7 @@ sfloat OpponentConnectionDetectorDiag2(const POSITION2D &Pos, const SHANDLE Para
 	ConnectionCount = ConnectionCount > 0.0 ? ConnectionCount : 0.0;
 	return OpponentConnectionDetectorDiag1(Pos,Param) + (ConnectionCount*ConnectionCount) / 9.0;
 }
-sfloat CornerPosDetector(const POSITION2D &Pos, const SHANDLE Param)
+inline sfloat CornerPosDetector(const POSITION2D &Pos, const SHANDLE Param)
 {
 	cTicTacToeGame* pGame = (cTicTacToeGame*) Param;
 	if (pGame == nullptr)
@@ -357,3 +360,4 @@ sfloat CornerPosDetector(const POSITION2D &Pos, const SHANDLE Param)
 	}
 	return count / 9.0;
 }
+#endif

@@ -46,6 +46,9 @@
     <Filter Include="Header Files\DataSet">
       <UniqueIdentifier>{df86acb3-1767-4fd1-a1ad-16d12b4eb31d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Device">
+      <UniqueIdentifier>{4af712d9-d2fd-4e12-a51c-90ad38cc130f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\cVectorManager.h">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="ProblemSet\ProblemUIFunc.cpp">
       <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Device\cSanTerminalDeviceWin.cpp">
+      <Filter>Source Files\Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #include"cTicTacToeGame.h"
 using namespace San;
+using namespace San::Device;
 cTicTacToeGame::cTicTacToeGame(const uint32 BoardSize)
 	:m_pBoardBuffer(nullptr),
 	m_BoardSize(BoardSize),
@@ -283,8 +284,8 @@ int32 cTicTacToeGame::iUpdateBoard(cSanTerminalDevice* pTerminal)
 }
 void cTicTacToeGame::iRenderBoard(cSanTerminalDevice* pTerminal) const
 {
-	schar ChessSymbol = _SSTR(' ');
-	schar RowSymbolArray [] = _SSTR("012");
+	SString ChessSymbol = _SSTR(" ");
+	SString RowSymbolArray[] = { _SSTR("0"), _SSTR("1"), _SSTR("2") };
 	pTerminal->iOutputString(_SSTR("    0   1   2\n"));
 	pTerminal->iOutputString(_SSTR("  ¨X¨T¨j¨T¨j¨T¨[\n"));
 	for (uint32 seek_x = 0; seek_x < this->m_BoardSize; seek_x = seek_x + 1)
@@ -295,21 +296,21 @@ void cTicTacToeGame::iRenderBoard(cSanTerminalDevice* pTerminal) const
 			switch (this->m_pBoardBuffer[seek_x][seek_y])
 			{
 			case 0:
-				ChessSymbol = _SSTR(' ');
+				ChessSymbol = _SSTR(" ");
 				break;
 			case 1:
-				ChessSymbol = _SSTR('O');
+				ChessSymbol = _SSTR("O");
 				break;
 			case 2:
-				ChessSymbol = _SSTR('X');
+				ChessSymbol = _SSTR("X");
 				break;
 			default:
-				ChessSymbol = _SSTR(' ');
+				ChessSymbol = _SSTR(" ");
 				break;
 			}
 			pTerminal->iOutputString(ChessSymbol + _SSTR(" ¨U"));
 		}
-		pTerminal->iOutputString(_SSTR("\n") + ((seek_x + 1) != this->m_BoardSize) ? _SSTR("  ¨d¨T¨p¨T¨p¨T¨g\n") : _SSTR("  ¨^¨T¨m¨T¨m¨T¨a\n"));
+		pTerminal->iOutputString(((seek_x + 1) != this->m_BoardSize) ? _SSTR("\n  ¨d¨T¨p¨T¨p¨T¨g\n") : _SSTR("\n  ¨^¨T¨m¨T¨m¨T¨a\n"));
 	}
 }
 void cTicTacToeGame::iClearBoard()

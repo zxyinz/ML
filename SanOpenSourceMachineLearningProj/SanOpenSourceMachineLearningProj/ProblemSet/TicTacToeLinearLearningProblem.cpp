@@ -9,7 +9,7 @@ void TicTacToePrintBoard(const cTicTacToeGame &GameObj, const uint32 LearnerID, 
 
 	pTerminal->iOutputString(_SSTR("/*--------------- CSE 5693 Machine Learning Assignment 1---------------*/\n"));
 	pTerminal->iOutputString(_SSTR("/*REQUIREMENT: TIC - TAC - TOE                                         */\n"));
-	pTerminal->iOutputString(_SSTR("/*---------------------------------------------------------------------*/"));
+	pTerminal->iOutputString(_SSTR("/*---------------------------------------------------------------------*/\n"));
 
 	GameObj.iRenderBoard(pTerminal);
 

@@ -34,7 +34,7 @@ void TicTacToeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutput
 	pTerminal->iOutputString(_SSTR("Please Enter Supervise Learning Times: "));
 	::cin >> Times;
 
-	SupervisetLearning(Times, _SSTR("A1DataSet.txt"), Game, Learner, pTerminal);
+	SupervisetLearning(Times, _SSTR("DataSet\\TicTacToeTrainingDataSet.txt"), Game, Learner, pTerminal);
 
 	pTerminal->iOutputString(_SSTR("Please Enter Self Learning Times: "));
 	::cin >> Times;

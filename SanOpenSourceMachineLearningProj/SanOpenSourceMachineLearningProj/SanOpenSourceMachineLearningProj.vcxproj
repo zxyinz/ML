@@ -107,6 +107,7 @@
     <ClCompile Include="Core\SanMathematics.cpp" />
     <ClCompile Include="Core\SanMemory.cpp" />
     <ClCompile Include="Core\SanString.cpp" />
+    <ClCompile Include="Device\cSanTerminalDeviceWin.cpp" />
     <ClCompile Include="FileIO\cBMPReader.cpp" />
     <ClCompile Include="FileIO\SanFileIO.cpp" />
     <ClCompile Include="Graphics\PixelBasedRenderFunc.cpp" />

@@ -54,6 +54,9 @@ void TicTacToeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutput
 }
 void DecisionTreeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString)
 {
+	const SString strLineN = _SSTR("----------------------------------------\r\n\r\n");
+	const SString strLine = _SSTR("----------------------------------------\r\n");
+
 	::system("cls");
 
 	std::ios::sync_with_stdio(false);
@@ -113,7 +116,7 @@ void DecisionTreeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOut
 
 	sfloat ValidationRate = ::gloSToF(Buffer);
 
-	::system("pause");
+	//::system("pause");
 
 	LoadAttributeArray(strAttrPath, AttributeArray, ResultArray);
 	LoadInstanceSpace(strTrainPath, TrainInstanceArray, ValidationInstanceArray, ValidationRate);
@@ -127,17 +130,148 @@ void DecisionTreeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOut
 		PredictInstanceSpace(DecisionTree, TrainInstanceArray, strOutput, false);
 		strOutput = strOutput + SString(_SSTR("Test Set\tby Decision tree"));
 		PredictInstanceSpace(DecisionTree, TestInstanceArray, strOutput, false);
+
+		if (!::gloIsFloatEqual(ValidationRate, 0.0))
+		{
+			DecisionTree.iPruningTree(ValidationInstanceArray);
+
+			strOutput = strOutput + SString(_SSTR("\r\n\r\nRule Array(after purning):\r\n")) + strLine + DecisionTree.iPrintRule();
+
+			strOutput = strOutput + SString(_SSTR("\r\n\r\nTraining Set\tby Role Array"));
+			PredictInstanceSpace(DecisionTree, TrainInstanceArray, strOutput, true);
+			strOutput = strOutput + SString(_SSTR("Test Set\tby Role array"));
+			PredictInstanceSpace(DecisionTree, TestInstanceArray, strOutput, true);
+		}
 	}
 
 	/*Noise Mode*/
 	if (strCommand == _SSTR("2"))
 	{
-		cDecisionTreeAlgorithm DecisionTree;
-		strOutput = GenerateDecisionTree(DecisionTree, AttributeArray, TrainInstanceArray, ResultArray);
-		strOutput = strOutput + SString(_SSTR("Training Set\tby Decision tree"));
-		PredictInstanceSpace(DecisionTree, TrainInstanceArray, strOutput, false);
-		strOutput = strOutput + SString(_SSTR("Test Set\tby Decision tree"));
-		PredictInstanceSpace(DecisionTree, TestInstanceArray, strOutput, false);
+		sfloat MaxNoise = 0.3;
+		sfloat NoiseStep = 0.02;
+
+		while (true)
+		{
+			pTerminal->iOutputString(_SSTR("\r\nPlease enter maximum noise rate (percentage, 0.0 - 1.0): "), STC_GREY);
+			::cin.getline(Buffer, 1024);
+
+			MaxNoise = ::gloSToF(Buffer);
+
+			if (MaxNoise < 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
+			if (MaxNoise > 1.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
+
+			break;
+		}
+
+		while (true)
+		{
+			pTerminal->iOutputString(_SSTR("\r\nPlease enter noise increase step (percentage, 0.0 - 1.0): "), STC_GREY);
+			::cin.getline(Buffer, 1024);
+
+			NoiseStep = ::gloSToF(Buffer);
+
+			if (NoiseStep < 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
+			if (NoiseStep > MaxNoise){ pTerminal->iOutputString(_SSTR("Error: Invalid value, step greater than maximum noise rate\r\n"), STC_WHITE, STC_RED); continue; }
+
+			break;
+		}
+
+		uint32 NoiseTimes = MaxNoise / NoiseStep + 1;
+
+		const uint32 SampleTimes = 5;
+
+		vector<sfloat> TrainAccDecisionTree(NoiseTimes);
+		vector<sfloat> TestAccDecisionTree(NoiseTimes);
+		vector<sfloat> TrainAccRuleArray(NoiseTimes);
+		vector<sfloat> TestAccRuleArray(NoiseTimes);
+
+		for (uint32 seek = 0; seek < NoiseTimes; seek = seek + 1)
+		{
+			TrainAccDecisionTree[seek] = 0.0;
+			TestAccDecisionTree[seek] = 0.0;
+			TrainAccRuleArray[seek] = 0.0;
+			TestAccRuleArray[seek] = 0.0;
+		}
+
+		for (sfloat seek = 0.0; seek <= MaxNoise; seek = seek + NoiseStep)
+		{
+			pTerminal->iOutputString(_SSTR("Current noise rate: ") + ::gloFToS(seek * 100.0,_SSTR("5.2")) + _SSTR("%\r\n"));
+
+			//#pragma omp parallel for
+			for (uint32 seek_times = 0; seek_times < SampleTimes; seek_times = seek_times + 1)
+			{
+				//strOutput = strOutput + _SSTR("Noise rate:") + ::gloIToS(seek*100.0) + _SSTR("%\r\n");
+				vector<INSTANCE> NoiseTrainSpace;
+				vector<INSTANCE> NoiseVaildationSpace;
+				vector<INSTANCE> AccVaildationSpace;
+				for (uint32 seek_instance = 0; seek_instance < TrainInstanceArray.size(); seek_instance = seek_instance + 1)
+				{
+					INSTANCE Instance = TrainInstanceArray[seek_instance];
+
+					sfloat RandomVal = rand() % 10000;
+					RandomVal = RandomVal / 10000.0;
+
+					/*Generate Noise*/
+					if (RandomVal < seek)
+					{
+						while (true)
+						{
+							uint32 Index = ::rand() % ResultArray.size();
+							if (Instance.first.back() != ResultArray[Index])
+							{
+								Instance.first.back() = ResultArray[Index];
+								Instance.second = 1.0;
+								break;
+							}
+						}
+					}
+					/*Generate Vaildation Set*/
+					RandomVal = ::rand() % 10000;
+					RandomVal = RandomVal / 10000.0;
+					if (RandomVal >= ValidationRate)
+					{
+						NoiseTrainSpace.push_back(Instance);
+					}
+					else
+					{
+						NoiseVaildationSpace.push_back(Instance);
+						AccVaildationSpace.push_back(TrainInstanceArray[seek]);
+					}
+				}
+
+				/*Generate Tree*/
+				cDecisionTreeAlgorithm DecisionTree;
+				SString strAcc;
+
+				GenerateDecisionTree(DecisionTree, AttributeArray, NoiseTrainSpace, ResultArray);
+
+				uint32 Index = seek / NoiseStep;
+				TrainAccDecisionTree[Index] = TrainAccDecisionTree[Index] + PredictInstanceSpace(DecisionTree, NoiseTrainSpace, strAcc, true);
+				TestAccDecisionTree[Index] = TestAccDecisionTree[Index] + PredictInstanceSpace(DecisionTree, TestInstanceArray, strAcc, true);
+
+				/*Pruning*/
+				if (!::gloIsFloatEqual(ValidationRate, 0.0))
+				{
+					DecisionTree.iPruningTree(NoiseVaildationSpace);
+
+					TrainAccRuleArray[Index] = TrainAccRuleArray[Index] + PredictInstanceSpace(DecisionTree, NoiseTrainSpace, strAcc, true);
+					TestAccRuleArray[Index] = TestAccRuleArray[Index] + PredictInstanceSpace(DecisionTree, TestInstanceArray, strAcc, true);
+				}
+			}
+		}
+
+		strOutput = strOutput + SString(_SSTR("\r\n\r\nTest Set\tby Decision tree:\r\n")) + strLine;
+		for (uint32 seek = 0; seek < TestAccDecisionTree.size(); seek = seek + 1)
+		{
+			strOutput = strOutput + ::gloIToS((TestAccDecisionTree[seek] / SampleTimes) * 100.0) + _SSTR("% ");
+		}
+
+		strOutput = strOutput + SString(_SSTR("\r\n\r\nTest Set\tby Rule Array:\r\n")) + strLine;
+		for (uint32 seek = 0; seek < TestAccRuleArray.size(); seek = seek + 1)
+		{
+			strOutput = strOutput + ::gloIToS((TestAccRuleArray[seek] / SampleTimes) * 100.0) + _SSTR("% ");
+		}
+		strOutput = strOutput + _SSTR("\r\n");
 	}
 
 	if (strCommand == _SSTR("t"))

@@ -86,7 +86,7 @@ namespace San
 
 	SString		gloIToS(const long long &Data, const unsigned int Radix = 10);
 	long long	gloSToI(const SString &strString, const unsigned int Radix = 10);
-	SString		gloFToS(const double &Data);
+	SString		gloFToS(const double &Data, SString strFormat = _SSTR(""));
 	double		gloSToF(const SString &strString);
 
 	vector<SStringA> gloGetStringItemsA(const SStringA &strString, SStringA strStringMark = "\0");

@@ -93,8 +93,8 @@ sfloat PredictInstanceSpace(cDecisionTreeAlgorithm &DecisionTree, vector<INSTANC
 }
 SString GenerateDecisionTree(cDecisionTreeAlgorithm &DecisionTree, vector<ATTRIBUTE> &AttributeArray, vector<INSTANCE> &TrainInstanceArray, vector<SString> &ResultArray)
 {
-	SString strLineN = _SSTR("----------------------------------------\r\n\r\n");
-	SString strLine = _SSTR("----------------------------------------\r\n");
+	const SString strLineN = _SSTR("----------------------------------------\r\n\r\n");
+	const SString strLine = _SSTR("----------------------------------------\r\n");
 
 	for (uint32 seek = 0; seek < AttributeArray.size(); seek = seek + 1)
 	{

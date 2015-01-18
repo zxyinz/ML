@@ -280,13 +280,14 @@ long long San::gloSToI(const SString &strString, const unsigned int Radix)
 	}
 	return 0;
 }
-SString San::gloFToS(const double &Data)
+SString San::gloFToS(const double &Data, SString strFormat)
 {
 	schar string[512];
+	strFormat = _SSTR("%") + strFormat + _SSTR("f");
 #ifndef _UNICODE
-	::sprintf_s(string,128,"%f",Data);
+	::sprintf_s(string, 128, strFormat.c_str(), Data);
 #else
-	::_swprintf(string, L"%5.2f", Data);
+	::wsprintfW(string, strFormat.c_str(), Data);
 #endif
 	return string;
 }

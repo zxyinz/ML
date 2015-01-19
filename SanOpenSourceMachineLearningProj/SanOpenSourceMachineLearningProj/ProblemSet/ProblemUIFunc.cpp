@@ -285,3 +285,40 @@ void DecisionTreeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOut
 
 	::system("pause");
 }
+void ArtificialNeuralNetworkLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString)
+{
+	SString strTitle;
+	strTitle = strTitle + _SSTR("/*--------------- CSE5693 Machine Learning HW2 ---------------*/\n");
+	strTitle = strTitle + _SSTR("/*Project: Artificial Neural Network Algorithm                */\n");
+	strTitle = strTitle + _SSTR("/*Author:  Wang Kai                                           */\n");
+	strTitle = strTitle + _SSTR("/*------------------------------------------------------------*/\n");
+
+	pTerminal->iSetTerminalTittle(_SSTR("San Machine Learning Terminal"));
+
+	pTerminal->iClearScreen();
+
+	pTerminal->iOutputString(strTitle);
+	pTerminal->iOutputString(_SSTR("ARTIFICIAL NEURAL NETWORK ALGORITHM : \n\n"), STC_GREY);
+	pTerminal->iOutputString(_SSTR("Mode:\n\t0 - Byte\n\t1 - Tennis\n\t2 - Tennis Sepatate\n\t3 - Iris\n\t4 - Iris Validation\n\n"), STC_GREY);
+	pTerminal->iOutputString(_SSTR("Please Select Mode(0 - 4) :"), STC_GREY);
+
+	uint32 Mode;
+
+	::cin >> Mode;
+
+	Mode = Mode <= 4 ? Mode : 0;
+
+	pTerminal->iClearScreen();
+
+	switch (Mode)
+	{
+	case 0:ByteANN(pTerminal); break;
+	case 1:TennisANN(pTerminal); break;
+	case 2:TennisSANN(pTerminal); break;
+	case 3:IrisANN(pTerminal); break;
+	case 4:IrisPANN(pTerminal); break;
+	default:break;
+	}
+
+	::system("pause");
+}

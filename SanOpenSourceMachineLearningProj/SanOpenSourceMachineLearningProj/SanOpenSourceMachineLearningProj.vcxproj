@@ -93,6 +93,7 @@
     <ClInclude Include="ML\cGeneticAlgorithmHepothesis.h" />
     <ClInclude Include="ML\cLinearLearningAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
+    <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h" />
     <ClInclude Include="ProblemSet\cTicTacToeGame.h" />
     <ClInclude Include="ProblemSet\DecisionTreeLearningProblem.h" />
     <ClInclude Include="ProblemSet\DNNTrainingDataPreProcessing.h" />
@@ -123,6 +124,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ML\cRestrictedRoltzmannMachineAlgorithm.cpp" />
+    <ClCompile Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.cpp" />
     <ClCompile Include="ProblemSet\cTicTacToeGame.cpp" />
     <ClCompile Include="ProblemSet\DecisionTreeLearningProblem.cpp" />
     <ClCompile Include="ProblemSet\ProblemUIFunc.cpp" />

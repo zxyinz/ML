@@ -497,19 +497,26 @@ vector<sfloat> cArtificialNeuralNetworkAlgorithm::iGetOutputArray() const
 SString cArtificialNeuralNetworkAlgorithm::iPrintNeuralNetwork() const
 {
 	const SString strLine = _SSTR("--------------------\r\n");
+
 	SString strOutput = _SSTR("INPUT LAYER:\r\n\r\n");
+
 	uint32 LayerSize = this->m_LayerArray.size();
+
 	for (uint32 seek = 0; seek < this->m_FeatureArray.size(); seek = seek + 1)
 	{
 		strOutput = strOutput + _SSTR("  ") + this->m_FeatureArray[seek].strFeatrueName + _SSTR("\r\n");
 	}
+
 	strOutput = strOutput + _SSTR("\r\n\r\n");
+
 	for (uint32 seek = 0; seek < this->m_LayerArray[0].NodeArray.size(); seek = seek + 1)
 	{
-		strOutput = strOutput + ::gloFToS(this->m_LayerArray[0][seek].SigmoidOutput) + _SSTR("\t");
+		strOutput = strOutput + ::gloFToS(this->m_LayerArray[0][seek].SigmoidOutput, _SSTR("6.3")) + _SSTR("\t");
 	}
+
 	strOutput = strOutput + _SSTR("\r\n");
 	strOutput = strOutput + _SSTR("\r\n");
+
 	for (uint32 seek = 1; seek < LayerSize; seek = seek + 1)
 	{
 		if (seek != (LayerSize - 1))
@@ -522,10 +529,10 @@ SString cArtificialNeuralNetworkAlgorithm::iPrintNeuralNetwork() const
 		}
 		for (uint32 seek_node = 0; seek_node < this->m_LayerArray[seek].NodeArray.size(); seek_node = seek_node + 1)
 		{
-			strOutput = strOutput + ::gloFToS(this->m_LayerArray[seek][seek_node].SigmoidOutput) + _SSTR(" = ");
+			strOutput = strOutput + ::gloFToS(this->m_LayerArray[seek][seek_node].SigmoidOutput, _SSTR("6.3")) + _SSTR(" = ");
 			for (uint32 seek_w = 0; seek_w < this->m_LayerArray[seek][seek_node].WeightVector.size(); seek_w = seek_w + 1)
 			{
-				strOutput = strOutput + ::gloFToS(this->m_LayerArray[seek][seek_node][seek_w].w) + _SSTR(" ");
+				strOutput = strOutput + ::gloFToS(this->m_LayerArray[seek][seek_node][seek_w].w, _SSTR("6.3")) + _SSTR(" ");
 			}
 			strOutput = strOutput + _SSTR("\r\n");
 		}

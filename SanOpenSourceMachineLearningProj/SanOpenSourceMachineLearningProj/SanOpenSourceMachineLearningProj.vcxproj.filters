@@ -141,6 +141,9 @@
     <ClInclude Include="ProblemSet\DecisionTreeLearningProblem.h">
       <Filter>Header Files\ProblemSet</Filter>
     </ClInclude>
+    <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\cVectorManager.cpp">
@@ -207,6 +210,9 @@
       <Filter>Source Files\Device</Filter>
     </ClCompile>
     <ClCompile Include="ProblemSet\DecisionTreeLearningProblem.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.cpp">
       <Filter>Source Files\ProblemSet</Filter>
     </ClCompile>
   </ItemGroup>

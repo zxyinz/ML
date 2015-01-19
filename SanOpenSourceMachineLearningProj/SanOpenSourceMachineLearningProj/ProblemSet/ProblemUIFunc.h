@@ -2,6 +2,7 @@
 #include"../FileIO/SanFileIO.h"
 #include"TicTacToeLinearLearningProblem.h"
 #include"DecisionTreeLearningProblem.h"
+#include"ArtificialNeuralNetworkLearningProblem.h"
 using namespace std;
 #pragma once
 #ifndef __PROBLEMUIFUNC_H__
@@ -11,5 +12,7 @@ using namespace std;
 void TicTacToeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString);
 
 void DecisionTreeLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString);
+
+void ArtificialNeuralNetworkLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString);
 
 #endif

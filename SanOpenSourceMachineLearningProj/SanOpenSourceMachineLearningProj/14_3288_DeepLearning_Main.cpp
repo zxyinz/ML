@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 
 		if (strCommand == _SSTR("TTT")){ TicTacToeLearningProblem(&Terminal, &strOutput); break; }
 		if (strCommand == _SSTR("DT")){ DecisionTreeLearningProblem(&Terminal, &strOutput); break; }
-		//if (strCommand == _SSTR("NN")){ MCProblem(&Terminal, &strOutput); break; }
+		if (strCommand == _SSTR("NN")){ ArtificialNeuralNetworkLearningProblem(&Terminal, &strOutput); break; }
 		//if (strCommand == _SSTR("GA")){ CNFProblem(&Terminal, &strOutput); break; }
 		//if (strCommand == _SSTR("ResolutionAlgorithm")){ ResolutionAlgorithmProblem(&Terminal, &strOutput); break; }
 

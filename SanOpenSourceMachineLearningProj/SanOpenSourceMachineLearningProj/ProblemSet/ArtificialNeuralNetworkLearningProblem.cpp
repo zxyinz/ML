@@ -8,7 +8,7 @@ using namespace San::MachineLearning;
 static const SString strLine = _SSTR("------------------------------\r\n\r\n");
 
 static const sfloat ErrorBoundary = 0.05;
-void ByteANN(cSanTerminalDevice* pTerminal)
+SString ByteANN(cSanTerminalDevice* pTerminal)
 {
 	pTerminal->iOutputString(_SSTR("ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\n"), STC_GREY);
 
@@ -72,12 +72,14 @@ void ByteANN(cSanTerminalDevice* pTerminal)
 	/*::gloWriteFile(strOutputFilePath, strOutput, true);
 	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
 	::system("pause");*/
+
+	return strOutput;
 }
-void TennisANN(cSanTerminalDevice* pTerminal)
+SString TennisANN(cSanTerminalDevice* pTerminal)
 {
-	const SString strTennisAttrPath = _SSTR("tennis-attr.txt");
-	const SString strTennisTrainPath = _SSTR("tennis-train.txt");
-	const SString strTennisTestPath = _SSTR("tennis-test.txt");
+	const SString strTennisAttrPath = _SSTR("DataSet\\tennis-attr.txt");
+	const SString strTennisTrainPath = _SSTR("DataSet\\tennis-train.txt");
+	const SString strTennisTestPath = _SSTR("DataSet\\tennis-test.txt");
 
 	::cout << "ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\n";
 
@@ -94,7 +96,7 @@ void TennisANN(cSanTerminalDevice* pTerminal)
 	/*Load attributes and result table*/
 	if (!::gloLoadFile(strTennisAttrPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 	vector<SString> strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
 	AttributeTable.resize(strItems.size() - 1);
@@ -127,7 +129,7 @@ void TennisANN(cSanTerminalDevice* pTerminal)
 	/*Load training instance space*/
 	if (!::gloLoadFile(strTennisTrainPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	ANNTRAININGSET TrainingSet;
@@ -167,7 +169,7 @@ void TennisANN(cSanTerminalDevice* pTerminal)
 	/*Load test instance space*/
 	if (!::gloLoadFile(strTennisTestPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	ANNTRAININGSET TestSet;
@@ -224,12 +226,14 @@ void TennisANN(cSanTerminalDevice* pTerminal)
 	/*::gloWriteFile(strOutputFilePath, strOutput, true);
 	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
 	::system("pause");*/
+
+	return strOutput;
 }
-void TennisSANN(cSanTerminalDevice* pTerminal)
+SString TennisSANN(cSanTerminalDevice* pTerminal)
 {
-	const SString strTennisAttrPath = _SSTR("tennis-attr.txt");
-	const SString strTennisTrainPath = _SSTR("tennis-train.txt");
-	const SString strTennisTestPath = _SSTR("tennis-test.txt");
+	const SString strTennisAttrPath = _SSTR("DataSet\\tennis-attr.txt");
+	const SString strTennisTrainPath = _SSTR("DataSet\\tennis-train.txt");
+	const SString strTennisTestPath = _SSTR("DataSet\\tennis-test.txt");
 
 	::cout << "ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\n";
 
@@ -247,7 +251,7 @@ void TennisSANN(cSanTerminalDevice* pTerminal)
 	/*Load attributes and result table*/
 	if (!::gloLoadFile(strTennisAttrPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 	vector<SString> strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
 	AttributeTable.resize(strItems.size() - 1);
@@ -285,7 +289,7 @@ void TennisSANN(cSanTerminalDevice* pTerminal)
 	/*Load training instance space*/
 	if (!::gloLoadFile(strTennisTrainPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	ANNTRAININGSET TrainingSet;
@@ -330,7 +334,7 @@ void TennisSANN(cSanTerminalDevice* pTerminal)
 	/*Load test instance space*/
 	if (!::gloLoadFile(strTennisTestPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	ANNTRAININGSET TestSet;
@@ -392,12 +396,14 @@ void TennisSANN(cSanTerminalDevice* pTerminal)
 	/*::gloWriteFile(strOutputFilePath, strOutput, true);
 	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
 	::system("pause");*/
+
+	return strOutput;
 }
-void IrisANN(cSanTerminalDevice* pTerminal)
+SString IrisANN(cSanTerminalDevice* pTerminal)
 {
-	const SString strIrisAttrPath = _SSTR("iris-attr.txt");
-	const SString strIrisTrainPath = _SSTR("iris-train.txt");
-	const SString strIrisTestPath = _SSTR("iris-test.txt");
+	const SString strIrisAttrPath = _SSTR("DataSet\\iris-attr.txt");
+	const SString strIrisTrainPath = _SSTR("DataSet\\iris-train.txt");
+	const SString strIrisTestPath = _SSTR("DataSet\\iris-test.txt");
 
 	::cout << "ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\n";
 
@@ -414,7 +420,7 @@ void IrisANN(cSanTerminalDevice* pTerminal)
 	/*Load attributes and result table*/
 	if (!::gloLoadFile(strIrisAttrPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 	vector<SString> strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
 	AttributeTable.resize(strItems.size() - 1);
@@ -448,7 +454,7 @@ void IrisANN(cSanTerminalDevice* pTerminal)
 	/*Load training instance space*/
 	if (!::gloLoadFile(strIrisTrainPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	ANNTRAININGSET TrainingSet;
@@ -481,7 +487,7 @@ void IrisANN(cSanTerminalDevice* pTerminal)
 	/*Load test instance space*/
 	if (!::gloLoadFile(strIrisTestPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	ANNTRAININGSET TestSet;
@@ -531,12 +537,14 @@ void IrisANN(cSanTerminalDevice* pTerminal)
 	/*::gloWriteFile(strOutputFilePath, strOutput, true);
 	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
 	::system("pause");*/
+
+	return strOutput;
 }
-void IrisPANN(cSanTerminalDevice* pTerminal)
+SString IrisPANN(cSanTerminalDevice* pTerminal)
 {
-	const SString strIrisAttrPath = _SSTR("iris-attr.txt");
-	const SString strIrisTrainPath = _SSTR("iris-train.txt");
-	const SString strIrisTestPath = _SSTR("iris-test.txt");
+	const SString strIrisAttrPath = _SSTR("DataSet\\iris-attr.txt");
+	const SString strIrisTrainPath = _SSTR("DataSet\\iris-train.txt");
+	const SString strIrisTestPath = _SSTR("DataSet\\iris-test.txt");
 
 	::cout << "ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\n";
 
@@ -556,7 +564,7 @@ void IrisPANN(cSanTerminalDevice* pTerminal)
 	/*Load attributes and result table*/
 	if (!::gloLoadFile(strIrisAttrPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 	vector<SString> strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
 	AttributeTable.resize(strItems.size() - 1);
@@ -571,7 +579,7 @@ void IrisPANN(cSanTerminalDevice* pTerminal)
 	/*Load training instance space*/
 	if (!::gloLoadFile(strIrisTrainPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
@@ -603,7 +611,7 @@ void IrisPANN(cSanTerminalDevice* pTerminal)
 	/*Load test instance space*/
 	if (!::gloLoadFile(strIrisTestPath, strData))
 	{
-		return;
+		return SString(_SSTR("Error: Load file failed\r\n"));
 	}
 
 	strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
@@ -810,6 +818,8 @@ void IrisPANN(cSanTerminalDevice* pTerminal)
 	pAccuracyArray = nullptr;
 
 	/*::system("pause");*/
+
+	return strOutput;
 }
 sfloat CalcAccuracy(const vector<sfloat> &PredictVector, const vector<sfloat> &TrainOutputVector)
 {
@@ -838,7 +848,7 @@ sfloat CalcDistance(const vector<sfloat> &Vec1, const vector<sfloat> &Vec2)
 	}
 	return ::sqrt(dis);
 }
-void PrintInstance(const pair<vector<sfloat>, vector<sfloat>> &Instance)
+void PrintInstance(const pair<vector<sfloat>, vector<sfloat>> &Instance, cSanTerminalDevice* pTerminal)
 {
 	SString strOutput = _SSTR("Instance: ");
 	uint32 AttribSize = Instance.first.size();
@@ -852,7 +862,7 @@ void PrintInstance(const pair<vector<sfloat>, vector<sfloat>> &Instance)
 	{
 		strOutput = strOutput + ::gloFToS(Instance.second[seek]) + _SSTR(" ");
 	}
-	::wcout << strOutput.c_str() << "\n";
+	pTerminal->iOutputString(strOutput + _SSTR("\r\n"));
 }
 sfloat CalcSetAccuracy(cArtificialNeuralNetworkAlgorithm &ANNNetwork, const ANNTRAININGSET &Set)
 {

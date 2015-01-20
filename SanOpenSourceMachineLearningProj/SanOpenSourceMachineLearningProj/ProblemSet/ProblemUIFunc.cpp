@@ -310,15 +310,19 @@ void ArtificialNeuralNetworkLearningProblem(cSanTerminalDevice* pTerminal, SStri
 
 	pTerminal->iClearScreen();
 
+	SString strOutput;
+
 	switch (Mode)
 	{
-	case 0:ByteANN(pTerminal); break;
-	case 1:TennisANN(pTerminal); break;
-	case 2:TennisSANN(pTerminal); break;
-	case 3:IrisANN(pTerminal); break;
-	case 4:IrisPANN(pTerminal); break;
+	case 0:strOutput = ByteANN(pTerminal); break;
+	case 1:strOutput = TennisANN(pTerminal); break;
+	case 2:strOutput = TennisSANN(pTerminal); break;
+	case 3:strOutput = IrisANN(pTerminal); break;
+	case 4:strOutput = IrisPANN(pTerminal); break;
 	default:break;
 	}
+
+	if (pstrOutputString != nullptr){ *pstrOutputString = strOutput; }
 
 	::system("pause");
 }

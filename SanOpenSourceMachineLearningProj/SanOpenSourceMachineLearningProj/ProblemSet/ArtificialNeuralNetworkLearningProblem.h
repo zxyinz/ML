@@ -15,6 +15,7 @@ SString TennisANN(cSanTerminalDevice* pTerminal);
 SString TennisSANN(cSanTerminalDevice* pTerminal);
 SString IrisANN(cSanTerminalDevice* pTerminal);
 SString IrisPANN(cSanTerminalDevice* pTerminal);
+SString GeneralANN(cSanTerminalDevice* pTerminal);
 
 sfloat CalcAccuracy(const vector<sfloat> &PredictVector, const vector<sfloat> &TrainOutputVector);
 sfloat CalcDistance(const vector<sfloat> &Vec1, const vector<sfloat> &Vec2);

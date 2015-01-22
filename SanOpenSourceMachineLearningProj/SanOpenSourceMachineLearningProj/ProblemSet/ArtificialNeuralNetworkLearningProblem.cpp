@@ -821,6 +821,307 @@ SString IrisPANN(cSanTerminalDevice* pTerminal)
 
 	return strOutput;
 }
+SString GeneralANN(cSanTerminalDevice* pTerminal)
+{
+	pTerminal->iOutputString(_SSTR("ARTIFICIAL NEURAL NETWORK ALGORITHM:\r\n\r\n"));
+
+	SString strAttrPath = _SSTR("-attr.txt");
+	SString strTrainPath = _SSTR("-train.txt");
+	SString strTestPath = _SSTR("-test.txt");
+
+	SString strOutput;
+
+	sfloat ValidationSetRate = 1.0 / 3.0;
+
+	vector<vector<SString>> AttributeTable;
+	vector<SString> ResultTable;
+
+	ANNTRAININGSET* pTrainingSet = new ANNTRAININGSET;
+	ANNTRAININGSET* pTestSet = new ANNTRAININGSET;
+
+	SStringA strData;
+
+	char Buffer[1024];
+
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter data set file name: "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		SStringA strFileName = Buffer;
+
+		if (strFileName.empty()){ pTerminal->iOutputString(_SSTR("Error: Invalid file name\r\n"), STC_WHITE, STC_RED); continue; }
+
+		strAttrPath = strFileName + strAttrPath;
+		strTrainPath = strFileName + strTrainPath;
+		strTestPath = strFileName + strTestPath;
+	}
+
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter validation dataset size (percentage, 0.0 - 1.0): "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		sfloat Rate = ::gloSToF(Buffer);
+
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid file name"), STC_WHITE, STC_RED); continue; }
+
+		ValidationSetRate = Rate;
+	}
+
+#pragma region Load attributes and result table
+	/*Load attributes and result table*/
+	if (!::gloLoadFile(strAttrPath, strData)){ return SString(_SSTR("Error: Load file failed\r\n")); }
+
+	vector<SString> strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
+	AttributeTable.resize(strItems.size() - 1);
+	for (uint32 seek = 0; seek < (strItems.size() - 1); seek = seek + 1)
+	{
+		AttributeTable[seek] = ::gloGetStringItems(strItems[seek], _SSTR(" "));
+	}
+	ResultTable = ::gloGetStringItems(strItems[strItems.size() - 1], _SSTR(""));
+#pragma endregion
+
+#pragma region Load training instance space
+	/*Load training instance space*/
+	if (!::gloLoadFile(strTrainPath, strData)){ return SString(_SSTR("Error: Load file failed\r\n")); }
+
+	strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
+	pTrainingSet->resize(strItems.size());
+	for (uint32 seek = 0; seek < strItems.size(); seek = seek + 1)
+	{
+		(*pTrainingSet)[seek].first.resize(AttributeTable.size());
+		(*pTrainingSet)[seek].second.resize(ResultTable.size() - 1);
+		vector<SString> strSubItems = ::gloGetStringItems(strItems[seek], _SSTR(" "));
+		for (uint32 seek_attrib = 0; seek_attrib < (strSubItems.size() - 1); seek_attrib = seek_attrib + 1)
+		{
+			(*pTrainingSet)[seek].first[seek_attrib] = ::gloSToF(strSubItems[seek_attrib]);
+		}
+		for (uint32 seek_val = 0; seek_val < (ResultTable.size() - 1); seek_val = seek_val + 1)
+		{
+			(*pTrainingSet)[seek].second[seek_val] = 0.0;
+		}
+		for (uint32 seek_val = 1; seek_val < ResultTable.size(); seek_val = seek_val + 1)
+		{
+			if (strSubItems.back() == ResultTable[seek_val])
+			{
+				(*pTrainingSet)[seek].second[seek_val - 1] = 1.0;
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region Load test instance space
+	/*Load test instance space*/
+	if (!::gloLoadFile(strTestPath, strData)){ return SString(_SSTR("Error: Load file failed\r\n")); }
+
+	strItems = ::gloGetStringItems(::gloAToT(strData), _SSTR("\r\n"));
+	pTestSet->resize(strItems.size());
+	for (uint32 seek = 0; seek < strItems.size(); seek = seek + 1)
+	{
+		(*pTestSet)[seek].first.resize(AttributeTable.size());
+		(*pTestSet)[seek].second.resize(ResultTable.size() - 1);
+		vector<SString> strSubItems = ::gloGetStringItems(strItems[seek], _SSTR(" "));
+		for (uint32 seek_attrib = 0; seek_attrib < (strSubItems.size() - 1); seek_attrib = seek_attrib + 1)
+		{
+			(*pTestSet)[seek].first[seek_attrib] = ::gloSToF(strSubItems[seek_attrib]);
+		}
+		for (uint32 seek_val = 0; seek_val < (ResultTable.size() - 1); seek_val = seek_val + 1)
+		{
+			(*pTestSet)[seek].second[seek_val] = 0.0;
+		}
+		for (uint32 seek_val = 1; seek_val < ResultTable.size(); seek_val = seek_val + 1)
+		{
+			if (strSubItems.back() == ResultTable[seek_val])
+			{
+				(*pTestSet)[seek].second[seek_val - 1] = 1.0;
+			}
+		}
+	}
+#pragma endregion
+
+	const uint32 NoiseMinLevel = 0;
+	const uint32 NoiseMaxLevel = 30;
+	const uint32 NoiseIncreaseStep = 2;
+	const uint32 IterationTimes = 5;
+
+	uint32 NoiseTimes = (NoiseMaxLevel - NoiseMinLevel) / NoiseIncreaseStep;
+
+	vector<sfloat>* pAccuracyArray = new vector<sfloat>[6];
+	pAccuracyArray[0].resize(NoiseTimes);
+	pAccuracyArray[1].resize(NoiseTimes);
+	pAccuracyArray[2].resize(NoiseTimes);
+	pAccuracyArray[3].resize(NoiseTimes);
+	pAccuracyArray[4].resize(NoiseTimes);
+	pAccuracyArray[5].resize(NoiseTimes);
+	for (uint32 seek = 0; seek < 6; seek = seek + 1)
+	{
+		for (uint32 seek_item = 0; seek_item < NoiseTimes; seek_item = seek_item + 1)
+		{
+			pAccuracyArray[seek][seek_item] = 0.0;
+		}
+	}
+
+	for (uint32 seek_iteration = 0; seek_iteration < IterationTimes; seek_iteration = seek_iteration + 1)
+	{
+		//#pragma omp parallel for
+		for (int32 seek_noise = NoiseMinLevel; seek_noise <= NoiseMaxLevel; seek_noise = seek_noise + NoiseIncreaseStep)
+		{
+			::cout << "\nNoise Rate: " << seek_noise << "\n";
+			ANNTRAININGSET NoiseTrainingSet;
+			ANNTRAININGSET NoiseValidationSet;
+
+#pragma region Add noise and create noise training set, noise validation set
+			/*Add noise and seprate the instance to training set or validation set*/
+			sfloat RandomNum = 0.0;
+			uint32 InstanceOutputIndex = 0;
+			uint32 ResultArraySize = (*pTrainingSet)[0].second.size();
+			uint32 Count = 0;
+			for (uint32 seek = 0; seek < pTrainingSet->size(); seek = seek + 1)
+			{
+				pair<vector<sfloat>, vector<sfloat>> Instance = (*pTrainingSet)[seek];
+				RandomNum = ::rand() % 1000;
+				if (RandomNum < (seek_noise * 10))
+				{
+					//PrintInstance(Instance);
+					for (uint32 seek_res = 0; seek_res < ResultArraySize; seek_res = seek_res + 1)
+					{
+						if (::gloIsFloatEqual(Instance.second[seek_res], 1.0))
+						{
+							InstanceOutputIndex = seek_res;
+						}
+						Instance.second[seek_res] = 0.0;
+					}
+					RandomNum = ::rand() % ResultArraySize;
+					while (::gloIsFloatEqual(RandomNum, InstanceOutputIndex))
+					{
+						RandomNum = ::rand() % ResultArraySize;
+					}
+					Instance.second[(uint32) RandomNum] = 1.0;
+					//PrintInstance(Instance);
+					//::cout << "\n";
+					//Count = Count + 1;
+				}
+				RandomNum = ::rand() % 1000;
+				RandomNum = RandomNum / 1000.0;
+				if (RandomNum < ValidationSetRate)
+				{
+					NoiseValidationSet.push_back(Instance);
+				}
+				else
+				{
+					NoiseTrainingSet.push_back(Instance);
+				}
+			}
+			::cout << "Training Set Size:\t" << NoiseTrainingSet.size() << "\n";
+			::cout << "Validation Set Size:\t" << NoiseValidationSet.size() << "\n";
+#pragma endregion
+
+			cArtificialNeuralNetworkAlgorithm ANNNetwork(0.9, 0.3, -0.1, 0.1);
+
+			/*Generate ANN network structure*/
+			SANSTREAM UserStream;
+
+			for (uint32 seek = 0; seek < AttributeTable.size(); seek = seek + 1)
+			{
+				ANNNetwork.iCreateFeatureNode(AttributeTable[seek][0], UserStream, nullptr);
+			}
+
+			ANNNetwork.iCreateLayer(5);
+			ANNNetwork.iCreateLayer(ResultTable.size() - 1);
+
+#pragma region Debug output
+			/*strOutput = strOutput + _SSTR("INITIALIZED NETWORK:\r\n") + strLine + ANNNetwork.iPrintNeuralNetwork();
+			::wcout << ANNNetwork.iPrintNeuralNetwork().c_str();
+			::system("pause");
+			::system("cls");
+			::wcout << L"ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\nTraining...\n\n";*/
+#pragma endregion
+
+			ANNNetwork.iTraining(NoiseTrainingSet, 20000);
+			//strOutput = strOutput + _SSTR("\r\nTRAINNED NETWORK:\r\n") + strLine + ANNNetwork.iPrintNeuralNetwork();
+
+			sfloat Accuracy = 0.0;
+
+#pragma region Evaluate accuracy before pruning
+			uint32 NoiseLevelIndex = seek_noise / NoiseIncreaseStep;
+
+			/*Training Set Accuracy Before Pruning*/
+			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
+			::cout << "Training Set\tAcc - BP: " << Accuracy << "\n";
+			pAccuracyArray[0][NoiseLevelIndex] = pAccuracyArray[0][NoiseLevelIndex] + Accuracy;
+
+			/*Validation Set Accuracy Before Pruning*/
+			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseValidationSet);
+			::cout << "Validation Set\tAcc - BP: " << Accuracy << "\n";
+			pAccuracyArray[1][NoiseLevelIndex] = pAccuracyArray[1][NoiseLevelIndex] + Accuracy;
+
+			/*Test Set Accuracy Before Pruning*/
+			Accuracy = CalcSetAccuracy(ANNNetwork, *pTestSet);
+			::cout << "Test Set\tAcc - BP: " << Accuracy << "\n";
+			pAccuracyArray[2][NoiseLevelIndex] = pAccuracyArray[2][NoiseLevelIndex] + Accuracy;
+#pragma endregion
+
+			//ANNNetwork.iTrainingWithValidation(NoiseTrainingSet, NoiseTrainingSet, 50000);
+			ANNNetwork.iPruning(NoiseValidationSet);
+
+#pragma region Evaluate accuracy after pruning
+			/*Training Set Accuracy Before Pruning*/
+			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
+			::cout << "Training Set\tAcc - AP: " << Accuracy << "\n";
+			pAccuracyArray[3][NoiseLevelIndex] = pAccuracyArray[3][NoiseLevelIndex] + Accuracy;
+
+			/*Validation Set Accuracy Before Pruning*/
+			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseValidationSet);
+			::cout << "Validation Set\tAcc - AP: " << Accuracy << "\n";
+			pAccuracyArray[4][NoiseLevelIndex] = pAccuracyArray[4][NoiseLevelIndex] + Accuracy;
+
+			/*Test Set Accuracy Before Pruning*/
+			Accuracy = CalcSetAccuracy(ANNNetwork, *pTestSet);
+			::cout << "Test Set\tAcc - AP: " << Accuracy << "\n";
+			pAccuracyArray[5][NoiseLevelIndex] = pAccuracyArray[5][NoiseLevelIndex] + Accuracy;
+#pragma endregion
+			//NoiseLevelIndex = NoiseLevelIndex + 1;
+		}
+	}
+
+#pragma region Accuracy output
+	SString strAccuracyType[6];
+	strAccuracyType[0] = _SSTR("\r\nBefore Pruning\r\nTraining   Set: ");
+	strAccuracyType[1] = _SSTR("Validation Set: ");
+	strAccuracyType[2] = _SSTR("Test       Set: ");
+	strAccuracyType[3] = _SSTR("\r\nAfter Pruning\r\nTraining   Set: ");
+	strAccuracyType[4] = _SSTR("Validation Set: ");
+	strAccuracyType[5] = _SSTR("Test       Set: ");
+	strOutput = strOutput + _SSTR("\r\n\r\nNoise Level:    ");
+	for (int32 seek = NoiseMinLevel; seek <= NoiseMaxLevel; seek = seek + NoiseIncreaseStep)
+	{
+		strOutput = strOutput + ::gloFToS((sfloat) seek / 100.0) + _SSTR(" ");
+	}
+	for (uint32 seek = 0; seek < 6; seek = seek + 1)
+	{
+		strOutput = strOutput + _SSTR("\r\n") + strAccuracyType[seek];
+		for (int32 seek_noise = NoiseMinLevel; seek_noise <= NoiseTimes; seek_noise = seek_noise + 1)
+		{
+			strOutput = strOutput + ::gloFToS(pAccuracyArray[seek][seek_noise] * (1.0 / (sfloat) IterationTimes)) + _SSTR(" ");
+		}
+	}
+#pragma endregion
+
+	/*::gloWriteFile(strOutputFilePath, strOutput, true);
+	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());*/
+
+	delete pTrainingSet;
+	pTrainingSet = nullptr;
+	delete pTestSet;
+	pTestSet = nullptr;
+	delete[] pAccuracyArray;
+	pAccuracyArray = nullptr;
+
+	/*::system("pause");*/
+
+	return strOutput;
+}
 sfloat CalcAccuracy(const vector<sfloat> &PredictVector, const vector<sfloat> &TrainOutputVector)
 {
 	sfloat Distance = 0.0;

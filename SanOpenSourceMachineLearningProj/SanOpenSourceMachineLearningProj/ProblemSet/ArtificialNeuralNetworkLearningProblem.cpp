@@ -855,6 +855,8 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		strAttrPath = strFileName + strAttrPath;
 		strTrainPath = strFileName + strTrainPath;
 		strTestPath = strFileName + strTestPath;
+
+		break;
 	}
 
 	while (true)
@@ -864,9 +866,11 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 		sfloat Rate = ::gloSToF(Buffer);
 
-		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid file name"), STC_WHITE, STC_RED); continue; }
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
 
 		ValidationSetRate = Rate;
+
+		break;
 	}
 
 #pragma region Load attributes and result table
@@ -940,22 +944,102 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 	}
 #pragma endregion
 
-	const uint32 NoiseMinLevel = 0;
-	const uint32 NoiseMaxLevel = 30;
-	const uint32 NoiseIncreaseStep = 2;
+#pragma region generate artificial neural network
+	/*Generate artificial neural network*/
+	sfloat LearningRate = 0.9;
+	sfloat MomentumValue = 0.3;
+
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter learning rate (greater than 0.0): "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		sfloat Rate = ::gloSToF(Buffer);
+
+		if (Rate <= 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+		LearningRate = Rate;
+
+		break;
+	}
+
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter momentum value (greater than 0.0): "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		sfloat Rate = ::gloSToF(Buffer);
+
+		if (Rate <= 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+		MomentumValue = Rate;
+
+		break;
+	}
+
+	cArtificialNeuralNetworkAlgorithm ANN(LearningRate, MomentumValue, -0.1, 0.1);
+
+	SANSTREAM UserStream;
+
+	for (uint32 seek = 0; seek < AttributeTable.size(); seek = seek + 1)
+	{
+		ANN.iCreateFeatureNode(AttributeTable[seek][0], UserStream, nullptr);
+	}
+
+	while (true)
+	{
+		int32 HiddenLayerSize = 1;
+
+		while (true)
+		{
+			pTerminal->iOutputString(_SSTR("Please enter artificial neural netwoek layer size: "), STC_GREY);
+			::cin.getline(Buffer, 1024);
+
+			HiddenLayerSize = ::gloSToI(Buffer);
+
+			if (HiddenLayerSize <= 0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+			break;
+		}
+
+		for (int32 seek_layer = 0; seek_layer < HiddenLayerSize; seek_layer = seek_layer + 1)
+		{
+			uint32 NodeNumber = 1;
+
+			while (true)
+			{
+				pTerminal->iOutputString(_SSTR("Please enter layer #") + ::gloIToS(seek_layer + 1) + _SSTR(" node size: "), STC_GREY);
+				::cin.getline(Buffer, 1024);
+
+				NodeNumber = ::gloSToI(Buffer);
+
+				if (NodeNumber == 0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+				break;
+			}
+
+			ANN.iCreateLayer(NodeNumber);
+		}
+
+		ANN.iCreateLayer(ResultTable.size() - 1);
+
+		break;
+	}
+#pragma endregion
+
+	sfloat NoiseMinLevel = 0.0;
+	sfloat NoiseMaxLevel = 0.3;
+	sfloat NoiseIncreaseStep = 0.02;
+
 	const uint32 IterationTimes = 5;
 
-	uint32 NoiseTimes = (NoiseMaxLevel - NoiseMinLevel) / NoiseIncreaseStep;
+	uint32 NoiseTimes = (NoiseMaxLevel*1000.0 - NoiseMinLevel*1000.0) / NoiseIncreaseStep*1000.0;
 
-	vector<sfloat>* pAccuracyArray = new vector<sfloat>[6];
-	pAccuracyArray[0].resize(NoiseTimes);
-	pAccuracyArray[1].resize(NoiseTimes);
-	pAccuracyArray[2].resize(NoiseTimes);
-	pAccuracyArray[3].resize(NoiseTimes);
-	pAccuracyArray[4].resize(NoiseTimes);
-	pAccuracyArray[5].resize(NoiseTimes);
-	for (uint32 seek = 0; seek < 6; seek = seek + 1)
+	vector<sfloat>* pAccuracyArray = new vector<sfloat>[IterationTimes + 1];
+
+	for (uint32 seek = 0; seek <= IterationTimes; seek = seek + 1)
 	{
+		pAccuracyArray[0].resize(NoiseTimes);
 		for (uint32 seek_item = 0; seek_item < NoiseTimes; seek_item = seek_item + 1)
 		{
 			pAccuracyArray[seek][seek_item] = 0.0;
@@ -964,10 +1048,9 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 	for (uint32 seek_iteration = 0; seek_iteration < IterationTimes; seek_iteration = seek_iteration + 1)
 	{
-		//#pragma omp parallel for
-		for (int32 seek_noise = NoiseMinLevel; seek_noise <= NoiseMaxLevel; seek_noise = seek_noise + NoiseIncreaseStep)
+		for (sfloat seek_noise = NoiseMinLevel; seek_noise <= NoiseMaxLevel; seek_noise = seek_noise + NoiseIncreaseStep)
 		{
-			::cout << "\nNoise Rate: " << seek_noise << "\n";
+			pTerminal->iOutputString(_SSTR("\nNoise Rate: ") + ::gloFToS(seek_noise) + _SSTR("r\n"));
 			ANNTRAININGSET NoiseTrainingSet;
 			ANNTRAININGSET NoiseValidationSet;
 
@@ -998,10 +1081,8 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 						RandomNum = ::rand() % ResultArraySize;
 					}
 					Instance.second[(uint32) RandomNum] = 1.0;
-					//PrintInstance(Instance);
-					//::cout << "\n";
-					//Count = Count + 1;
 				}
+
 				RandomNum = ::rand() % 1000;
 				RandomNum = RandomNum / 1000.0;
 				if (RandomNum < ValidationSetRate)
@@ -1013,33 +1094,15 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 					NoiseTrainingSet.push_back(Instance);
 				}
 			}
-			::cout << "Training Set Size:\t" << NoiseTrainingSet.size() << "\n";
-			::cout << "Validation Set Size:\t" << NoiseValidationSet.size() << "\n";
+			pTerminal->iOutputString(_SSTR("Training Set Size:\t") + ::gloIToS(NoiseTrainingSet.size()) + _SSTR("\n"));
+			pTerminal->iOutputString(_SSTR("Validation Set Size:\t") + ::gloIToS(NoiseValidationSet.size()) + _SSTR("\n"));
 #pragma endregion
 
-			cArtificialNeuralNetworkAlgorithm ANNNetwork(0.9, 0.3, -0.1, 0.1);
+			cArtificialNeuralNetworkAlgorithm ANNNetwork = ANN;
 
-			/*Generate ANN network structure*/
-			SANSTREAM UserStream;
-
-			for (uint32 seek = 0; seek < AttributeTable.size(); seek = seek + 1)
-			{
-				ANNNetwork.iCreateFeatureNode(AttributeTable[seek][0], UserStream, nullptr);
-			}
-
-			ANNNetwork.iCreateLayer(5);
-			ANNNetwork.iCreateLayer(ResultTable.size() - 1);
-
-#pragma region Debug output
-			/*strOutput = strOutput + _SSTR("INITIALIZED NETWORK:\r\n") + strLine + ANNNetwork.iPrintNeuralNetwork();
-			::wcout << ANNNetwork.iPrintNeuralNetwork().c_str();
-			::system("pause");
-			::system("cls");
-			::wcout << L"ARTIFICIAL NEURAL NETWORK ALGORITHM:\n\nTraining...\n\n";*/
-#pragma endregion
+			ANNNetwork.iReset();
 
 			ANNNetwork.iTraining(NoiseTrainingSet, 20000);
-			//strOutput = strOutput + _SSTR("\r\nTRAINNED NETWORK:\r\n") + strLine + ANNNetwork.iPrintNeuralNetwork();
 
 			sfloat Accuracy = 0.0;
 

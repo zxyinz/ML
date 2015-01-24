@@ -843,6 +843,8 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 	char Buffer[1024];
 
+#pragma region Get user input, data set file and validation set rate
+	//Get user input, data set file and validation set rate
 	while (true)
 	{
 		pTerminal->iOutputString(_SSTR("Please enter data set file name: "), STC_GREY);
@@ -872,6 +874,7 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 		break;
 	}
+#pragma endregion
 
 #pragma region Load attributes and result table
 	/*Load attributes and result table*/
@@ -944,11 +947,11 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 	}
 #pragma endregion
 
-#pragma region generate artificial neural network
-	/*Generate artificial neural network*/
 	sfloat LearningRate = 0.9;
 	sfloat MomentumValue = 0.3;
 
+#pragma region Get user input, learning rate and momentum value
+	//Get user input, learning rate and momentum value
 	while (true)
 	{
 		pTerminal->iOutputString(_SSTR("Please enter learning rate (greater than 0.0): "), STC_GREY);
@@ -976,7 +979,10 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 		break;
 	}
+#pragma endregion
 
+#pragma region Generate artificial neural network
+	/*Generate artificial neural network*/
 	cArtificialNeuralNetworkAlgorithm ANN(LearningRate, MomentumValue, -0.1, 0.1);
 
 	SANSTREAM UserStream;
@@ -1030,6 +1036,52 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 	sfloat NoiseMinLevel = 0.0;
 	sfloat NoiseMaxLevel = 0.3;
 	sfloat NoiseIncreaseStep = 0.02;
+
+#pragma region Get user input, noise min level, noise max level and increase step
+	//Get user input, noise min level, noise max level and increase step
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter noise minimum level (percentage, 0.0 - 1.0): "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		sfloat Rate = ::gloSToF(Buffer);
+
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+		NoiseMinLevel = Rate;
+
+		break;
+	}
+
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter noise maximum level (percentage, noise minimum level - 1.0): "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		sfloat Rate = ::gloSToF(Buffer);
+
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (Rate < NoiseMinLevel){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+		NoiseMaxLevel = Rate;
+
+		break;
+	}
+
+	while (true)
+	{
+		pTerminal->iOutputString(_SSTR("Please enter noise increase step (percentage, 0.0 - 1.0): "), STC_GREY);
+		::cin.getline(Buffer, 1024);
+
+		sfloat Rate = ::gloSToF(Buffer);
+
+		if ((Rate <= 0.0) || (Rate > 1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+
+		NoiseIncreaseStep = Rate;
+
+		break;
+	}
+#pragma endregion
 
 	const uint32 IterationTimes = 5;
 
@@ -1111,17 +1163,17 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 			/*Training Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
-			::cout << "Training Set\tAcc - BP: " << Accuracy << "\n";
+			pTerminal->iOutputString(_SSTR("Training Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			pAccuracyArray[0][NoiseLevelIndex] = pAccuracyArray[0][NoiseLevelIndex] + Accuracy;
 
 			/*Validation Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseValidationSet);
-			::cout << "Validation Set\tAcc - BP: " << Accuracy << "\n";
+			pTerminal->iOutputString(_SSTR("Validation Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			pAccuracyArray[1][NoiseLevelIndex] = pAccuracyArray[1][NoiseLevelIndex] + Accuracy;
 
 			/*Test Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, *pTestSet);
-			::cout << "Test Set\tAcc - BP: " << Accuracy << "\n";
+			pTerminal->iOutputString(_SSTR("Test Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			pAccuracyArray[2][NoiseLevelIndex] = pAccuracyArray[2][NoiseLevelIndex] + Accuracy;
 #pragma endregion
 
@@ -1131,17 +1183,17 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 #pragma region Evaluate accuracy after pruning
 			/*Training Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
-			::cout << "Training Set\tAcc - AP: " << Accuracy << "\n";
+			pTerminal->iOutputString(_SSTR("Training Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			pAccuracyArray[3][NoiseLevelIndex] = pAccuracyArray[3][NoiseLevelIndex] + Accuracy;
 
 			/*Validation Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseValidationSet);
-			::cout << "Validation Set\tAcc - AP: " << Accuracy << "\n";
+			pTerminal->iOutputString(_SSTR("Validation Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			pAccuracyArray[4][NoiseLevelIndex] = pAccuracyArray[4][NoiseLevelIndex] + Accuracy;
 
 			/*Test Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, *pTestSet);
-			::cout << "Test Set\tAcc - AP: " << Accuracy << "\n";
+			pTerminal->iOutputString(_SSTR("Test Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			pAccuracyArray[5][NoiseLevelIndex] = pAccuracyArray[5][NoiseLevelIndex] + Accuracy;
 #pragma endregion
 			//NoiseLevelIndex = NoiseLevelIndex + 1;

@@ -1011,7 +1011,7 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 		while (true)
 		{
-			pTerminal->iOutputString(_SSTR("Please enter artificial neural netwoek layer size: "), STC_GREY);
+			pTerminal->iOutputString(_SSTR("Please enter artificial neural network layer size: "), STC_GREY);
 			::cin.getline(Buffer, 1024);
 
 			SStringA strCommand = Buffer;
@@ -1120,14 +1120,14 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 	uint32 NoiseTimes = (NoiseMaxLevel*1000.0 - NoiseMinLevel*1000.0) / (NoiseIncreaseStep*1000.0);
 
-	vector<sfloat>* pAccuracyArray = new vector<sfloat>[IterationTimes + 1];
+	vector<vector<sfloat>> AccuracyArray(6);// = new vector<sfloat>[IterationTimes + 1];
 
 	for (uint32 seek = 0; seek <= IterationTimes; seek = seek + 1)
 	{
-		pAccuracyArray[0].resize(NoiseTimes);
+		AccuracyArray[seek].resize(NoiseTimes);
 		for (uint32 seek_item = 0; seek_item < NoiseTimes; seek_item = seek_item + 1)
 		{
-			pAccuracyArray[seek][seek_item] = 0.0;
+			AccuracyArray[seek][seek_item] = 0.0;
 		}
 	}
 
@@ -1135,7 +1135,7 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 	{
 		for (sfloat seek_noise = NoiseMinLevel; seek_noise <= NoiseMaxLevel; seek_noise = seek_noise + NoiseIncreaseStep)
 		{
-			pTerminal->iOutputString(_SSTR("\nNoise Rate: ") + ::gloFToS(seek_noise) + _SSTR("r\n"));
+			pTerminal->iOutputString(_SSTR("\nNoise Rate: ") + ::gloFToS(seek_noise) + _SSTR("\r\n"));
 			ANNTRAININGSET NoiseTrainingSet;
 			ANNTRAININGSET NoiseValidationSet;
 
@@ -1197,17 +1197,17 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 			/*Training Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
 			pTerminal->iOutputString(_SSTR("Training Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
-			pAccuracyArray[0][NoiseLevelIndex] = pAccuracyArray[0][NoiseLevelIndex] + Accuracy;
+			AccuracyArray[0][NoiseLevelIndex] = AccuracyArray[0][NoiseLevelIndex] + Accuracy;
 
 			/*Validation Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseValidationSet);
 			pTerminal->iOutputString(_SSTR("Validation Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
-			pAccuracyArray[1][NoiseLevelIndex] = pAccuracyArray[1][NoiseLevelIndex] + Accuracy;
+			AccuracyArray[1][NoiseLevelIndex] = AccuracyArray[1][NoiseLevelIndex] + Accuracy;
 
 			/*Test Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, *pTestSet);
 			pTerminal->iOutputString(_SSTR("Test Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
-			pAccuracyArray[2][NoiseLevelIndex] = pAccuracyArray[2][NoiseLevelIndex] + Accuracy;
+			AccuracyArray[2][NoiseLevelIndex] = AccuracyArray[2][NoiseLevelIndex] + Accuracy;
 #pragma endregion
 
 			//ANNNetwork.iTrainingWithValidation(NoiseTrainingSet, NoiseTrainingSet, 50000);
@@ -1217,17 +1217,17 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 			/*Training Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
 			pTerminal->iOutputString(_SSTR("Training Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
-			pAccuracyArray[3][NoiseLevelIndex] = pAccuracyArray[3][NoiseLevelIndex] + Accuracy;
+			AccuracyArray[3][NoiseLevelIndex] = AccuracyArray[3][NoiseLevelIndex] + Accuracy;
 
 			/*Validation Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseValidationSet);
 			pTerminal->iOutputString(_SSTR("Validation Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
-			pAccuracyArray[4][NoiseLevelIndex] = pAccuracyArray[4][NoiseLevelIndex] + Accuracy;
+			AccuracyArray[4][NoiseLevelIndex] = AccuracyArray[4][NoiseLevelIndex] + Accuracy;
 
 			/*Test Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, *pTestSet);
 			pTerminal->iOutputString(_SSTR("Test Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
-			pAccuracyArray[5][NoiseLevelIndex] = pAccuracyArray[5][NoiseLevelIndex] + Accuracy;
+			AccuracyArray[5][NoiseLevelIndex] = AccuracyArray[5][NoiseLevelIndex] + Accuracy;
 #pragma endregion
 			//NoiseLevelIndex = NoiseLevelIndex + 1;
 		}
@@ -1251,7 +1251,7 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		strOutput = strOutput + _SSTR("\r\n") + strAccuracyType[seek];
 		for (int32 seek_noise = NoiseMinLevel; seek_noise <= NoiseTimes; seek_noise = seek_noise + 1)
 		{
-			strOutput = strOutput + ::gloFToS(pAccuracyArray[seek][seek_noise] * (1.0 / (sfloat) IterationTimes)) + _SSTR(" ");
+			strOutput = strOutput + ::gloFToS(AccuracyArray[seek][seek_noise] * (1.0 / (sfloat) IterationTimes)) + _SSTR(" ");
 		}
 	}
 #pragma endregion
@@ -1263,8 +1263,8 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 	pTrainingSet = nullptr;
 	delete pTestSet;
 	pTestSet = nullptr;
-	delete[] pAccuracyArray;
-	pAccuracyArray = nullptr;
+	/*delete[] pAccuracyArray;
+	pAccuracyArray = nullptr;*/
 
 	/*::system("pause");*/
 

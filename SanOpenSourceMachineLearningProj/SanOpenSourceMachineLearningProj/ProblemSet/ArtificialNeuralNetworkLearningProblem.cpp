@@ -843,6 +843,8 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 	char Buffer[1024];
 
+	::cin.getline(Buffer, 1024);
+
 #pragma region Get user input, data set file and validation set rate
 	//Get user input, data set file and validation set rate
 	while (true)
@@ -866,9 +868,12 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		pTerminal->iOutputString(_SSTR("Please enter validation dataset size (percentage, 0.0 - 1.0): "), STC_GREY);
 		::cin.getline(Buffer, 1024);
 
-		sfloat Rate = ::gloSToF(Buffer);
+		SStringA strCommand = Buffer;
 
-		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (strCommand.empty()){ continue; }
+		sfloat Rate = ::gloSToF(strCommand);
+
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 		ValidationSetRate = Rate;
 
@@ -957,9 +962,13 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		pTerminal->iOutputString(_SSTR("Please enter learning rate (greater than 0.0): "), STC_GREY);
 		::cin.getline(Buffer, 1024);
 
-		sfloat Rate = ::gloSToF(Buffer);
+		SStringA strCommand = Buffer;
 
-		if (Rate <= 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (strCommand.empty()){ continue; }
+
+		sfloat Rate = ::gloSToF(strCommand);
+
+		if (Rate <= 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 		LearningRate = Rate;
 
@@ -971,9 +980,13 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		pTerminal->iOutputString(_SSTR("Please enter momentum value (greater than 0.0): "), STC_GREY);
 		::cin.getline(Buffer, 1024);
 
-		sfloat Rate = ::gloSToF(Buffer);
+		SStringA strCommand = Buffer;
 
-		if (Rate <= 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (strCommand.empty()){ continue; }
+
+		sfloat Rate = ::gloSToF(strCommand);
+
+		if (Rate <= 0.0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 		MomentumValue = Rate;
 
@@ -1001,9 +1014,13 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 			pTerminal->iOutputString(_SSTR("Please enter artificial neural netwoek layer size: "), STC_GREY);
 			::cin.getline(Buffer, 1024);
 
-			HiddenLayerSize = ::gloSToI(Buffer);
+			SStringA strCommand = Buffer;
 
-			if (HiddenLayerSize <= 0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+			if (strCommand.empty()){ continue; }
+
+			HiddenLayerSize = ::gloSToI(strCommand);
+
+			if (HiddenLayerSize <= 0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 			break;
 		}
@@ -1017,9 +1034,13 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 				pTerminal->iOutputString(_SSTR("Please enter layer #") + ::gloIToS(seek_layer + 1) + _SSTR(" node size: "), STC_GREY);
 				::cin.getline(Buffer, 1024);
 
-				NodeNumber = ::gloSToI(Buffer);
+				SStringA strCommand = Buffer;
 
-				if (NodeNumber == 0){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+				if (strCommand.empty()){ continue; }
+
+				NodeNumber = ::gloSToI(strCommand);
+
+				if (NodeNumber == 0){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 				break;
 			}
@@ -1044,9 +1065,13 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		pTerminal->iOutputString(_SSTR("Please enter noise minimum level (percentage, 0.0 - 1.0): "), STC_GREY);
 		::cin.getline(Buffer, 1024);
 
-		sfloat Rate = ::gloSToF(Buffer);
+		SStringA strCommand = Buffer;
 
-		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (strCommand.empty()){ continue; }
+
+		sfloat Rate = ::gloSToF(strCommand);
+
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 		NoiseMinLevel = Rate;
 
@@ -1058,10 +1083,14 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		pTerminal->iOutputString(_SSTR("Please enter noise maximum level (percentage, noise minimum level - 1.0): "), STC_GREY);
 		::cin.getline(Buffer, 1024);
 
-		sfloat Rate = ::gloSToF(Buffer);
+		SStringA strCommand = Buffer;
 
-		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
-		if (Rate < NoiseMinLevel){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (strCommand.empty()){ continue; }
+
+		sfloat Rate = ::gloSToF(strCommand);
+
+		if ((Rate<0.0) || (Rate>1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
+		if (Rate < NoiseMinLevel){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 		NoiseMaxLevel = Rate;
 
@@ -1073,9 +1102,13 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 		pTerminal->iOutputString(_SSTR("Please enter noise increase step (percentage, 0.0 - 1.0): "), STC_GREY);
 		::cin.getline(Buffer, 1024);
 
-		sfloat Rate = ::gloSToF(Buffer);
+		SStringA strCommand = Buffer;
 
-		if ((Rate <= 0.0) || (Rate > 1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value"), STC_WHITE, STC_RED); continue; }
+		if (strCommand.empty()){ continue; }
+
+		sfloat Rate = ::gloSToF(strCommand);
+
+		if ((Rate <= 0.0) || (Rate > 1.0)){ pTerminal->iOutputString(_SSTR("Error: Invalid value\r\n"), STC_WHITE, STC_RED); continue; }
 
 		NoiseIncreaseStep = Rate;
 
@@ -1085,7 +1118,7 @@ SString GeneralANN(cSanTerminalDevice* pTerminal)
 
 	const uint32 IterationTimes = 5;
 
-	uint32 NoiseTimes = (NoiseMaxLevel*1000.0 - NoiseMinLevel*1000.0) / NoiseIncreaseStep*1000.0;
+	uint32 NoiseTimes = (NoiseMaxLevel*1000.0 - NoiseMinLevel*1000.0) / (NoiseIncreaseStep*1000.0);
 
 	vector<sfloat>* pAccuracyArray = new vector<sfloat>[IterationTimes + 1];
 

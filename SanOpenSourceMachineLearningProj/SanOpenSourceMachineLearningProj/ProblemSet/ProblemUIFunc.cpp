@@ -299,14 +299,14 @@ void ArtificialNeuralNetworkLearningProblem(cSanTerminalDevice* pTerminal, SStri
 
 	pTerminal->iOutputString(strTitle);
 	pTerminal->iOutputString(_SSTR("ARTIFICIAL NEURAL NETWORK ALGORITHM : \n\n"), STC_GREY);
-	pTerminal->iOutputString(_SSTR("Mode:\n\t0 - Byte\n\t1 - Tennis\n\t2 - Tennis Sepatate\n\t3 - Iris\n\t4 - Iris Validation\n\n"), STC_GREY);
-	pTerminal->iOutputString(_SSTR("Please Select Mode(0 - 5) :"), STC_GREY);
+	pTerminal->iOutputString(_SSTR("Mode:\n\t0 - Byte\n\t1 - Tennis\n\t2 - Tennis Sepatate\n\t3 - Iris\n\t4 - Iris Validation\n\t5 - General Validation\n\t6 - General Noise Validation\n\n"), STC_GREY);
+	pTerminal->iOutputString(_SSTR("Please Select Mode(0 - 6) :"), STC_GREY);
 
 	uint32 Mode;
 
 	::cin >> Mode;
 
-	Mode = Mode <= 5 ? Mode : 0;
+	Mode = Mode <= 6 ? Mode : 0;
 
 	pTerminal->iClearScreen();
 
@@ -320,6 +320,7 @@ void ArtificialNeuralNetworkLearningProblem(cSanTerminalDevice* pTerminal, SStri
 	case 3:strOutput = IrisANN(pTerminal); break;
 	case 4:strOutput = IrisPANN(pTerminal); break;
 	case 5:strOutput = GeneralANN(pTerminal); break;
+	case 6:strOutput = GeneralNoiseANN(pTerminal); break;
 	default:break;
 	}
 

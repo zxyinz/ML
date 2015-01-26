@@ -304,7 +304,7 @@ void cArtificialNeuralNetworkAlgorithm::iTrainingWithValidation(const ANNTRAININ
 	uint32 Index = 0;
 	for (uint32 seek = 0; seek < TrainingTimes; seek = seek + 1)
 	{
-		::cout << "Training Iteration: " << seek << "\n";
+		//::cout << "Training Iteration: " << seek << "\n";
 		/*Training*/
 		for (uint32 seek_set = 0; seek_set < TrainingSetSize; seek_set = seek_set + 1)
 		{
@@ -329,7 +329,7 @@ void cArtificialNeuralNetworkAlgorithm::iTrainingWithValidation(const ANNTRAININ
 			Index = seek;
 		}
 	}
-	::cout << Index << "\n";
+	//::cout << Index << "\n";
 	this->m_LayerArray = MinErrorNetwork;
 }
 void cArtificialNeuralNetworkAlgorithm::iPredict(const vector<sfloat> &InputArray,const int32 Index)

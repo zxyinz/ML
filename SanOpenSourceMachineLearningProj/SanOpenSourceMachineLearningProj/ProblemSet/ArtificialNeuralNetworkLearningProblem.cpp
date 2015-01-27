@@ -1527,6 +1527,7 @@ SString GeneralNoiseANN(cSanTerminalDevice* pTerminal)
 
 	for (uint32 seek_iteration = 0; seek_iteration < IterationTimes; seek_iteration = seek_iteration + 1)
 	{
+		uint32 NoiseLevelIndex = 0;
 		for (sfloat seek_noise = NoiseMinLevel; seek_noise <= NoiseMaxLevel; seek_noise = seek_noise + NoiseIncreaseStep)
 		{
 			pTerminal->iOutputString(_SSTR("\nNoise Rate: ") + ::gloFToS(seek_noise) + _SSTR("\r\n"));
@@ -1590,8 +1591,6 @@ SString GeneralNoiseANN(cSanTerminalDevice* pTerminal)
 			sfloat Accuracy = 0.0;
 
 #pragma region Evaluate accuracy before pruning
-			uint32 NoiseLevelIndex = seek_noise / NoiseIncreaseStep;
-
 			/*Training Set Accuracy Before Pruning*/
 			Accuracy = CalcSetAccuracy(ANNNetwork, NoiseTrainingSet);
 			pTerminal->iOutputString(_SSTR("Training Set\tAcc - BP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
@@ -1627,7 +1626,8 @@ SString GeneralNoiseANN(cSanTerminalDevice* pTerminal)
 			pTerminal->iOutputString(_SSTR("Test Set\tAcc - AP: ") + ::gloFToS(Accuracy, _SSTR("5.3")) + _SSTR("\n"));
 			AccuracyArray[5][NoiseLevelIndex] = AccuracyArray[5][NoiseLevelIndex] + Accuracy;
 #pragma endregion
-			//NoiseLevelIndex = NoiseLevelIndex + 1;
+
+			NoiseLevelIndex = NoiseLevelIndex + 1;
 		}
 	}
 
@@ -1640,16 +1640,18 @@ SString GeneralNoiseANN(cSanTerminalDevice* pTerminal)
 	strAccuracyType[4] = _SSTR("Validation Set: ");
 	strAccuracyType[5] = _SSTR("Test       Set: ");
 	strOutput = strOutput + _SSTR("\r\n\r\nNoise Level:    ");
+
 	for (sfloat seek = NoiseMinLevel; seek <= NoiseMaxLevel; seek = seek + NoiseIncreaseStep)
 	{
-		strOutput = strOutput + ::gloFToS(seek,"5.3") + _SSTR(" ");
+		strOutput = strOutput + ::gloFToS(seek, _SSTR("5.3")) + _SSTR(" ");
 	}
+
 	for (uint32 seek = 0; seek < 6; seek = seek + 1)
 	{
 		strOutput = strOutput + _SSTR("\r\n") + strAccuracyType[seek];
-		for (int32 seek_noise = NoiseMinLevel; seek_noise <= NoiseTimes; seek_noise = seek_noise + 1)
+		for (uint32 seek_noise = 0; seek_noise <= NoiseTimes; seek_noise = seek_noise + 1)
 		{
-			strOutput = strOutput + ::gloFToS(AccuracyArray[seek][seek_noise] * (1.0 / (sfloat) IterationTimes)) + _SSTR(" ");
+			strOutput = strOutput + ::gloFToS(AccuracyArray[seek][seek_noise] * (1.0 / (sfloat) IterationTimes), _SSTR("5.3")) + _SSTR(" ");
 		}
 	}
 #pragma endregion

@@ -8,5 +8,5 @@ Visual Studio 2013 Project, use C++ programming language. Author: zxyinz
 * Decision Tree
 * Artificial Neural Network
 * Genetic Algorithm
-* Restric Boltzmann Machine
+* Restricted Boltzmann Machine
 * Deep Neural Nwtwork

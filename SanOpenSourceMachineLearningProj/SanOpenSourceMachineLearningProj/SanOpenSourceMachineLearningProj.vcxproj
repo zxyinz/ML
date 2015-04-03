@@ -91,12 +91,14 @@
     <ClInclude Include="ML\cGARuleSet.h" />
     <ClInclude Include="ML\cGeneticAlgorithm.h" />
     <ClInclude Include="ML\cGeneticAlgorithmHepothesis.h" />
+    <ClInclude Include="ML\cKMeansAlgorithm.h" />
     <ClInclude Include="ML\cLinearLearningAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
     <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h" />
     <ClInclude Include="ProblemSet\cTicTacToeGame.h" />
     <ClInclude Include="ProblemSet\DecisionTreeLearningProblem.h" />
     <ClInclude Include="ProblemSet\DNNTrainingDataPreProcessing.h" />
+    <ClInclude Include="ProblemSet\GeneticAlgorithmLearningProblem.h" />
     <ClInclude Include="ProblemSet\ProblemUIFunc.h" />
     <ClInclude Include="ProblemSet\TicTacToeDecetorFunc.h" />
     <ClInclude Include="ProblemSet\TicTacToeLinearLearningProblem.h" />
@@ -127,6 +129,7 @@
     <ClCompile Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.cpp" />
     <ClCompile Include="ProblemSet\cTicTacToeGame.cpp" />
     <ClCompile Include="ProblemSet\DecisionTreeLearningProblem.cpp" />
+    <ClCompile Include="ProblemSet\GeneticAlgorithmLearningProblem.cpp" />
     <ClCompile Include="ProblemSet\ProblemUIFunc.cpp" />
     <ClCompile Include="ProblemSet\TicTacToeLinearLearningProblem.cpp" />
   </ItemGroup>

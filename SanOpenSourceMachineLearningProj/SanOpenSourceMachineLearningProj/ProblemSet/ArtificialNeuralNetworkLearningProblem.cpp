@@ -44,7 +44,7 @@ SString ByteANN(cSanTerminalDevice* pTerminal)
 	ANNNetwork.iCreateFeatureNode(_SSTR("6"), UserStream, nullptr);
 	ANNNetwork.iCreateFeatureNode(_SSTR("7"), UserStream, nullptr);
 
-	ANNNetwork.iCreateLayer(8);
+	ANNNetwork.iCreateLayer(3);
 	ANNNetwork.iCreateLayer(8);
 
 #pragma region Debug output
@@ -1649,7 +1649,8 @@ SString GeneralNoiseANN(cSanTerminalDevice* pTerminal)
 	for (uint32 seek = 0; seek < 6; seek = seek + 1)
 	{
 		strOutput = strOutput + _SSTR("\r\n") + strAccuracyType[seek];
-		for (uint32 seek_noise = 0; seek_noise <= NoiseTimes; seek_noise = seek_noise + 1)
+
+		for (uint32 seek_noise = 0; seek_noise < NoiseTimes; seek_noise = seek_noise + 1)
 		{
 			strOutput = strOutput + ::gloFToS(AccuracyArray[seek][seek_noise] * (1.0 / (sfloat) IterationTimes), _SSTR("5.3")) + _SSTR(" ");
 		}

@@ -144,6 +144,12 @@
     <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h">
       <Filter>Header Files\ProblemSet</Filter>
     </ClInclude>
+    <ClInclude Include="ML\cKMeansAlgorithm.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\GeneticAlgorithmLearningProblem.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\cVectorManager.cpp">
@@ -213,6 +219,9 @@
       <Filter>Source Files\ProblemSet</Filter>
     </ClCompile>
     <ClCompile Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet\GeneticAlgorithmLearningProblem.cpp">
       <Filter>Source Files\ProblemSet</Filter>
     </ClCompile>
   </ItemGroup>

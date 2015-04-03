@@ -328,3 +328,43 @@ void ArtificialNeuralNetworkLearningProblem(cSanTerminalDevice* pTerminal, SStri
 
 	::system("pause");
 }
+void GeneticAlgorithmLearningProblem(cSanTerminalDevice* pTerminal, SString* pstrOutputString)
+{
+	SString strTitle;
+	strTitle = strTitle + _SSTR("/*--------------- CSE5693 Machine Learning HW2 ---------------*/\n");
+	strTitle = strTitle + _SSTR("/*Project: Genetic Algorithm                                  */\n");
+	strTitle = strTitle + _SSTR("/*Author:  Wang Kai                                           */\n");
+	strTitle = strTitle + _SSTR("/*------------------------------------------------------------*/\n");
+
+	pTerminal->iSetTerminalTittle(_SSTR("San Machine Learning Terminal"));
+
+	pTerminal->iClearScreen();
+
+	pTerminal->iOutputString(strTitle);
+	pTerminal->iOutputString(_SSTR("GENETIC ALGORITHM:\n\n"), STC_GREY);
+	pTerminal->iOutputString(_SSTR("Mode:\n\t0 - Tennis\n\t1 - Iris\n\t2 - Iris Seletion\n\t3 - Iris Replacement\n\n"), STC_GREY);
+	pTerminal->iOutputString(_SSTR("Please Select Mode (0 - 3):"), STC_GREY);
+
+	uint32 Mode;
+
+	::cin >> Mode;
+
+	Mode = Mode <= 6 ? Mode : 0;
+
+	pTerminal->iClearScreen();
+
+	SString strOutput;
+
+	switch (Mode)
+	{
+	case 0:strOutput = TennisGA(pTerminal); break;
+	case 1:strOutput = IrisGA(pTerminal); break;
+	case 2:strOutput = IrisSGA(pTerminal); break;
+	case 3:strOutput = IrisRGA(pTerminal); break;
+	default:break;
+	}
+
+	if (pstrOutputString != nullptr){ *pstrOutputString = strOutput; }
+
+	::system("pause");
+}

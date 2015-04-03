@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 		if (strCommand == _SSTR("TTT")){ TicTacToeLearningProblem(&Terminal, &strOutput); break; }
 		if (strCommand == _SSTR("DT")){ DecisionTreeLearningProblem(&Terminal, &strOutput); break; }
 		if (strCommand == _SSTR("NN")){ ArtificialNeuralNetworkLearningProblem(&Terminal, &strOutput); break; }
-		//if (strCommand == _SSTR("GA")){ CNFProblem(&Terminal, &strOutput); break; }
+		if (strCommand == _SSTR("GA")){ GeneticAlgorithmLearningProblem(&Terminal, &strOutput); break; }
 		//if (strCommand == _SSTR("ResolutionAlgorithm")){ ResolutionAlgorithmProblem(&Terminal, &strOutput); break; }
 
 		if (!strCommand.empty()){ Terminal.iOutputString(_SSTR("Error: Invalid command\r\n"), STC_WHITE, STC_RED); }

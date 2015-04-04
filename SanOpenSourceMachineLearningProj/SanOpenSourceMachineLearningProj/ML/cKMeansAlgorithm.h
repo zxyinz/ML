@@ -9,7 +9,7 @@ namespace San
 #define __CKMEANSALGORITHM_H__
 
 		template<class DataType>
-		using CLUSTERSET = _sstream<_sstream<DataType>>;
+		using CLUSTERSET = vector<vector<DataType>>;
 
 		template<class DataType>
 		class cKMeansAlgorithm

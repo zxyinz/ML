@@ -443,6 +443,9 @@ namespace San
 	//typedef stSANSTREAMEX	SANSTREAMEX;
 	//typedef stSANSTREAMEX* lpSANSTREAMEX;
 
+	template<class ST>
+	using _sstream = stSANSTREAMEX<ST>;
+
 	struct SANBITSTREAM : public stSANSTREAMEX<bool>
 	{
 	public:

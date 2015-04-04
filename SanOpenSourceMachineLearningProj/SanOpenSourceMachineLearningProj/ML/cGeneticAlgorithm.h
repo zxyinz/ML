@@ -1,4 +1,5 @@
 #include"time.h"
+#include"algorithm"
 #include"cGeneticAlgorithmHepothesis.h"
 using namespace std;
 #pragma once
@@ -36,49 +37,116 @@ namespace San
 			eGASELECTMETHOD m_SelectMethod;
 			uint32 m_MaxFitnessIndex;
 		protected:
-			void _TournamentMethod()
+			vector<sfloat> _GeneratePopulationWeightSpace(const vector<GAINDIVIDUAL<HypothesisClass>> &PopulationSpace, bool bEqualWeight = false) const
 			{
-				for (uint32 seek = 0; seek < this->m_PopulationSize; seek = seek + 2)
+				const uint32 Size = PopulationSpace.size();
+				vector<sfloat> WeightSpace(Size + 1);
+
+				if (bEqualWeight)
 				{
-					uint32 H1Index = ::rand() % (this->m_PopulationSize - seek);
-					uint32 H2Index = ::rand() % (this->m_PopulationSize - seek);
-					while (H1Index == H2Index)
+					sfloat Weight = 1.0 / (sfloat) PopulationSpace.size();
+					for (int32 seek = 0; seek < Size; seek = seek + 1)
 					{
-						H2Index = ::rand() % (this->m_PopulationSize - seek);
+						WeightSpace[seek + 1] = Weight;
 					}
-					if (this->m_PopulationSpace[H1Index].Fitness <= this->m_PopulationSpace[H2Index].Fitness)
+					WeightSpace[0] = 1.0;
+				}
+				else
+				{
+					sfloat WeightSum = 0.0;
+					for (int32 seek = 0; seek < Size; seek = seek + 1)
 					{
-						this->m_PopulationSpace[H1Index].Fitness = 0.4;
-						this->m_PopulationSpace[H2Index].Fitness = 0.6;
+						WeightSpace[seek + 1] = PopulationSpace[seek].Fitness;
+						WeightSum = WeightSum + WeightSpace[seek + 1];
+					}
+
+					WeightSpace[0] = WeightSum;
+				}
+
+				return WeightSpace;
+			};
+			int32 _SelectIndividualHypothesis(const vector<GAINDIVIDUAL<HypothesisClass>> &PopulationSpace, vector<sfloat> &WeightSpace, bool bEraseWeight = true) const
+			{
+				sfloat RandVal = ::rand() % 100000;
+				RandVal = RandVal * (WeightSpace[0] / 100000.0);
+
+				const uint32 Size = PopulationSpace.size() + 1;
+				sfloat CurrentWeight = 0.0;
+
+				for (uint32 seek = 1; seek < Size; seek = seek + 1)
+				{
+					CurrentWeight = CurrentWeight + WeightSpace[seek];
+					if (CurrentWeight>RandVal)
+					{
+						WeightSpace[0] = bEraseWeight ? WeightSpace[0] - WeightSpace[seek] : WeightSpace[0];
+						WeightSpace[seek] = bEraseWeight ? 0.0 : WeightSpace[seek];
+
+						return seek - 1;
+					}
+				}
+
+				return -1;
+			};
+			void _TournamentMethod(vector<GAINDIVIDUAL<HypothesisClass>> &PopulationSpace)
+			{
+				vector<sfloat> WeightSpace = this->_GeneratePopulationWeightSpace(PopulationSpace);
+
+				const uint32 Size = PopulationSpace.size();
+
+				for (uint32 seek = 0; seek < Size; seek = seek + 2)
+				{
+					uint32 H1Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace);
+					uint32 H2Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace);
+
+					/*while (H1Index == H2Index)
+					{
+						H2Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace)
+					}*/
+
+					PopulationSpace[H1Index].Fitness = PopulationSpace[H1Index].Fitness <= PopulationSpace[H2Index].Fitness ? 0.4 : 0.6;
+					PopulationSpace[H2Index].Fitness = PopulationSpace[H1Index].Fitness <= PopulationSpace[H2Index].Fitness ? 0.6 : 0.4;
+
+					/*if (PopulationSpace[H1Index].Fitness <= PopulationSpace[H2Index].Fitness)
+					{
+						PopulationSpace[H1Index].Fitness = 0.4;
+						PopulationSpace[H2Index].Fitness = 0.6;
 					}
 					else
 					{
-						this->m_PopulationSpace[H1Index].Fitness = 0.6;
-						this->m_PopulationSpace[H2Index].Fitness = 0.4;
-					}
+						PopulationSpace[H1Index].Fitness = 0.6;
+						PopulationSpace[H2Index].Fitness = 0.4;
+					}*/
 
-					GAINDIVIDUAL<HypothesisClass> Hypothesis = this->m_PopulationSpace[this->m_PopulationSize - seek - 1];
-					this->m_PopulationSpace[this->m_PopulationSize - seek - 1] = this->m_PopulationSpace[H1Index];
-					this->m_PopulationSpace[H1Index] = Hypothesis;
+					/*GAINDIVIDUAL<HypothesisClass> Hypothesis = PopulationSpace[this->m_PopulationSize - seek - 1];
+					PopulationSpace[this->m_PopulationSize - seek - 1] = PopulationSpace[H1Index];
+					PopulationSpace[H1Index] = Hypothesis;
 
-					Hypothesis = this->m_PopulationSpace[this->m_PopulationSize - seek - 2];
-					this->m_PopulationSpace[this->m_PopulationSize - seek - 2] = this->m_PopulationSpace[H2Index];
-					this->m_PopulationSpace[H2Index] = Hypothesis;
+					Hypothesis = PopulationSpace[this->m_PopulationSize - seek - 2];
+					PopulationSpace[this->m_PopulationSize - seek - 2] = PopulationSpace;
+					PopulationSpace[H2Index] = Hypothesis;*/
 				}
 
 				if (this->m_PopulationSize % 2 == 1)
 				{
-					this->m_PopulationSpace[this->m_PopulationSize - 1].Fitness = 0.5;
+					uint32 Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace);
+					PopulationSpace[Index].Fitness = 0.5;
+
+					//this->m_PopulationSpace[this->m_PopulationSize - 1].Fitness = 0.5;
 				}
 			};
-			void _RankMethod()
+			void _RankMethod(vector<GAINDIVIDUAL<HypothesisClass>> &PopulationSpace)
 			{
+				sfloat CurrentWeight = PopulationSpace.size();
+
+				//Sort
+				//std::sort(PopulationSpace.begin(), PopulationSpace.end());
+
 				for (uint32 seek = 0; seek < this->m_PopulationSize; seek = seek + 1)
 				{
 					uint32 MaxAccuracyIndex = seek;
 					for (uint32 seek_max = seek; seek_max < this->m_PopulationSize; seek_max = seek_max + 1)
 					{
-						if (this->m_PopulationSpace[seek].Fitness <= this->m_PopulationSpace[seek_max].Fitness)
+						if (PopulationSpace[seek].Fitness <= PopulationSpace[seek_max].Fitness)
 						{
 							MaxAccuracyIndex = seek_max;
 						}
@@ -113,17 +181,12 @@ namespace San
 			};
 			bool iSetAlgorithmParams(const uint32 Population, const sfloat ReplacementRate, const sfloat MutationRate, const eGASELECTMETHOD Method)
 			{
-				if (Population < 2)
-				{
-					return false;
-				}
-				if ((ReplacementRate < 0.0) || (MutationRate < 0.0))
-				{
-					return false;
-				}
+				if (Population < 2){ return false; }
+				if ((ReplacementRate < 0.0) || (MutationRate < 0.0)){ return false; }
+
 				this->m_PopulationSize = Population;
 				this->m_SelectMethod = Method;
-			}
+			};
 			void iGeneratePolulation(const GAINSTANCESET<I, O> &TrainingSet, const UserDataType &UserData, const sfloat Threshold, const uint32 MaxTimes)
 			{
 #pragma region Clear previous population space and regenerate new one
@@ -180,18 +243,20 @@ namespace San
 					}
 
 #pragma region Crossover
+					vector<sfloat> WeightSpace = this->_GeneratePopulationWeightSpace(this->m_PopulationSpace);
+
 					for (uint32 seek = 0; seek < OffspringSize; seek = seek + 2)
 					{
 						vector<cGeneticAlgorithmHypothesis<I, O, UserDataType>*> CurrentOffspringVector(2);
 
 						while (true)
 						{
-							uint32 H1 = ::rand() % this->m_PopulationSize;
-							uint32 H2 = ::rand() % this->m_PopulationSize;
+							uint32 H1 = this->_SelectIndividualHypothesis(this->m_PopulationSpace, WeightSpace, false);
+							uint32 H2 = this->_SelectIndividualHypothesis(this->m_PopulationSpace, WeightSpace, false);
 
 							while (H1 == H2)
 							{
-								H2 = ::rand() % this->m_PopulationSize;
+								H2 = this->_SelectIndividualHypothesis(this->m_PopulationSpace, WeightSpace, false);
 							}
 
 							CurrentOffspringVector[0] = nullptr;
@@ -214,10 +279,10 @@ namespace San
 					case GASST_DEFAULT:
 						break;
 					case GASST_TOURNAMENT:
-						this->_TournamentMethod();
+						this->_TournamentMethod(this->m_PopulationSpace);
 						break;
 					case GASST_RANK:
-						this->_RankMethod();
+						this->_RankMethod(this->m_PopulationSpace);
 						break;
 					default:
 						break;
@@ -238,7 +303,7 @@ namespace San
 					this->m_MaxFitnessIndex = this->m_PopulationSize - 1;
 
 					/*Random select other hypothesis*/
-					uint32 SurvivalCount = 1;
+					/*uint32 SurvivalCount = 1;
 					while (SurvivalCount != SurvivalSize)
 					{
 						uint32 Index = ::rand() % (this->m_PopulationSize - SurvivalCount);
@@ -255,6 +320,17 @@ namespace San
 
 							SurvivalCount = SurvivalCount + 1;
 						}
+					}*/
+
+					WeightSpace = this->_GeneratePopulationWeightSpace(this->m_PopulationSpace);
+					for (uint32 seek = 0; seek < SurvivalSize;seek=seek+1)
+					{
+						uint32 Index = this->_SelectIndividualHypothesis(this->m_PopulationSpace, WeightSpace);
+
+						this->m_PopulationSpace[Index].bSurvived = true;
+						GAINDIVIDUAL<HypothesisClass> Indivdual = this->m_PopulationSpace[Index];
+						this->m_PopulationSpace[Index] = this->m_PopulationSpace[this->m_PopulationSize - seek - 1];
+						this->m_PopulationSpace[this->m_PopulationSize - seek - 1] = Indivdual;
 					}
 
 					/*Normailize the probalility*/

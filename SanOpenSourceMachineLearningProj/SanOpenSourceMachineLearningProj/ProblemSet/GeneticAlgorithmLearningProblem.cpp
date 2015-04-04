@@ -5,13 +5,13 @@ using namespace San::FileIOStream;
 using namespace San::Device;
 using namespace San::MachineLearning;
 
-const SString strTennisAttrPath = _SSTR("tennis-attr.txt");
-const SString strTennisTrainPath = _SSTR("tennis-train.txt");
-const SString strTennisTestPath = _SSTR("tennis-test.txt");
+const SString strTennisAttrPath = _SSTR("DataSet\\tennis-attr.txt");
+const SString strTennisTrainPath = _SSTR("DataSet\\tennis-train.txt");
+const SString strTennisTestPath = _SSTR("DataSet\\tennis-test.txt");
 
-const SString strIrisAttrPath = _SSTR("iris-attr.txt");
-const SString strIrisTrainPath = _SSTR("iris-train.txt");
-const SString strIrisTestPath = _SSTR("iris-test.txt");
+const SString strIrisAttrPath = _SSTR("DataSet\\iris-attr.txt");
+const SString strIrisTrainPath = _SSTR("DataSet\\iris-train.txt");
+const SString strIrisTestPath = _SSTR("DataSet\\iris-test.txt");
 
 
 const SString strOutputFilePath = _SSTR("Output.txt");
@@ -51,9 +51,7 @@ SString TennisGA(cSanTerminalDevice* pTerminal)
 
 	strOutput = strOutput + _SSTR("Test Set Accuracy:\t") + ::gloFToS(GA.iAccuracy(TestSet)) + _SSTR("\r\n");
 
-	::gloWriteFile(strOutputFilePath, strOutput, true);
-	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
-	::system("pause");
+	return strOutput;
 }
 SString IrisGA(cSanTerminalDevice* pTerminal)
 {
@@ -97,9 +95,7 @@ SString IrisGA(cSanTerminalDevice* pTerminal)
 
 	strOutput = strOutput + _SSTR("Test Set Accuracy:\t") + ::gloFToS(GA.iAccuracy(TestSet)) + _SSTR("\r\n");
 
-	::gloWriteFile(strOutputFilePath, strOutput, true);
-	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
-	::system("pause");
+	return strOutput;
 }
 SString IrisSGA(cSanTerminalDevice* pTerminal)
 {
@@ -163,9 +159,8 @@ SString IrisSGA(cSanTerminalDevice* pTerminal)
 
 		}
 	}
-	::gloWriteFile(strOutputFilePath, strOutput, true);
-	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
-	::system("pause");
+	
+	return strOutput;
 }
 SString IrisRGA(cSanTerminalDevice* pTerminal)
 {
@@ -213,9 +208,8 @@ SString IrisRGA(cSanTerminalDevice* pTerminal)
 		strOutput = strOutput + _SSTR("Replacement Rate: ") + ::gloFToS(Rate) + _SSTR("\tTest Set Accuracy:\t") + ::gloFToS(Accuracy) + _SSTR("\r\n");
 
 	}
-	::gloWriteFile(strOutputFilePath, strOutput, true);
-	::system(SStringA(SStringA("notepad ") + ::gloTToA(strOutputFilePath)).c_str());
-	::system("pause");
+
+	return strOutput;
 }
 bool LoadAttribute(SString strFilePath, vector<pair<SString, vector<SString>>> &AttributeArray, vector<SString> &ResultArray)
 {

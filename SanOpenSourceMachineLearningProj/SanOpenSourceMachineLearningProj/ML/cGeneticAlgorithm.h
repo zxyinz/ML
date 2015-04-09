@@ -21,9 +21,18 @@ namespace San
 		template<class HypothesisClass>
 		struct GAINDIVIDUAL
 		{
+		public:
 			HypothesisClass* pHypothesis;
 			sfloat Fitness;
 			bool bSurvived;
+		public:
+			GAINDIVIDUAL()
+				:pHypothesis(nullptr), Fitness(0.0), bSurvived(false)
+			{
+			};
+			~GAINDIVIDUAL()
+			{
+			};
 		};
 
 		template<class I, class O, class UserDataType, class HypothesisClass>
@@ -98,32 +107,9 @@ namespace San
 					uint32 H1Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace);
 					uint32 H2Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace);
 
-					/*while (H1Index == H2Index)
-					{
-						H2Index = this->_SelectIndividualHypothesis(PopulationSpace, WeightSpace)
-					}*/
-
 					PopulationSpace[H1Index].Fitness = PopulationSpace[H1Index].Fitness <= PopulationSpace[H2Index].Fitness ? 0.4 : 0.6;
 					PopulationSpace[H2Index].Fitness = PopulationSpace[H1Index].Fitness <= PopulationSpace[H2Index].Fitness ? 0.6 : 0.4;
 
-					/*if (PopulationSpace[H1Index].Fitness <= PopulationSpace[H2Index].Fitness)
-					{
-						PopulationSpace[H1Index].Fitness = 0.4;
-						PopulationSpace[H2Index].Fitness = 0.6;
-					}
-					else
-					{
-						PopulationSpace[H1Index].Fitness = 0.6;
-						PopulationSpace[H2Index].Fitness = 0.4;
-					}*/
-
-					/*GAINDIVIDUAL<HypothesisClass> Hypothesis = PopulationSpace[this->m_PopulationSize - seek - 1];
-					PopulationSpace[this->m_PopulationSize - seek - 1] = PopulationSpace[H1Index];
-					PopulationSpace[H1Index] = Hypothesis;
-
-					Hypothesis = PopulationSpace[this->m_PopulationSize - seek - 2];
-					PopulationSpace[this->m_PopulationSize - seek - 2] = PopulationSpace;
-					PopulationSpace[H2Index] = Hypothesis;*/
 				}
 
 				if (this->m_PopulationSize % 2 == 1)
@@ -137,9 +123,6 @@ namespace San
 			void _RankMethod(vector<GAINDIVIDUAL<HypothesisClass>> &PopulationSpace)
 			{
 				sfloat CurrentWeight = PopulationSpace.size();
-
-				//Sort
-				//std::sort(PopulationSpace.begin(), PopulationSpace.end());
 
 				for (uint32 seek = 0; seek < this->m_PopulationSize; seek = seek + 1)
 				{

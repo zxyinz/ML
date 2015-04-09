@@ -26,6 +26,7 @@ namespace San
 			GACONTINUERULEDESC m_Desc;
 		protected:
 			static bool _CrossoverSP(const cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC> &H1, const cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC> &H2, vector<cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC>*> &OffspringSet);
+			static bool _CrossoverTP(const cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC> &H1, const cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC> &H2, vector<cGeneticAlgorithmHypothesis<SString, SString, GACONTINUERULEDESC>*> &OffspringSet);
 			static bool _InvaildCheck(const cGAContinueRuleSet &Hypothesis, const SANBITSTREAM &Stream);
 			bool _PredictByOneRule(const uint32 InstanceIndex, const uint32 RuleIndex, const GAINSTANCESET<SString, SString> &InstanceSpace, SString &Result);
 			void _CalcDefaultPredict();
@@ -44,6 +45,7 @@ namespace San
 			bool iMutation();
 			sfloat iEvaluate(const GAINSTANCESET<SString, SString> &InstanceSpace);
 			sfloat iAccuracy(const GAINSTANCESET<SString, SString> &InstanceSpace);
+			sfloat iAccuracy(const GAINSTANCESET<SString, SString> &InstanceSpace, SString &strOutput);
 			SString iPrintHypothesisSpace() const;
 			SString iPrintDebugInformtion() const;
 			sfloat iGetHypothesisSize() const;

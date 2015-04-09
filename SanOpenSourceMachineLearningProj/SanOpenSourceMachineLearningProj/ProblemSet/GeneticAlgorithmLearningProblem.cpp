@@ -87,7 +87,7 @@ SString IrisGA(cSanTerminalDevice* pTerminal)
 
 	GA.iSetAlgorithmParams(100, 0.5, 0.01, GASST_DEFAULT);
 
-	GA.iGeneratePolulation(TrainingSet, Desc, 0.9, 1000);
+	GA.iGeneratePolulation(TrainingSet, Desc, 0.9, 100);
 
 	strOutput = strOutput + GA.iPrintHypothesisSpace();
 

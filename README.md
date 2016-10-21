@@ -1,4 +1,4 @@
-# Machine Learning Project
+# Machine Learning Toolkit
 
 Visual Studio 2013 Project, use C++ programming language. Author: zxyinz
 

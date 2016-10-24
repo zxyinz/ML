@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SanMachineLearningProj", "SanMachineLearningProj\SanMachineLearningProj.vcxproj", "{CE4E51E5-984B-428C-B10A-CB363A666F80}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassificationProblemSet", "ClassificationProblemSet\ClassificationProblemSet.vcxproj", "{8F1F4356-A314-4C99-A017-A53FD89CDFCF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RecommendationProblemSet", "RecommendationProblemSet\RecommendationProblemSet.vcxproj", "{E49F1547-6D4B-4AE0-91B7-88DED548FC16}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameProblemSet", "GameProblemSet\GameProblemSet.vcxproj", "{C8189A51-1F99-424D-A490-E93E422EF80D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE4E51E5-984B-428C-B10A-CB363A666F80}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CE4E51E5-984B-428C-B10A-CB363A666F80}.Debug|Win32.Build.0 = Debug|Win32
+		{CE4E51E5-984B-428C-B10A-CB363A666F80}.Release|Win32.ActiveCfg = Release|Win32
+		{CE4E51E5-984B-428C-B10A-CB363A666F80}.Release|Win32.Build.0 = Release|Win32
+		{8F1F4356-A314-4C99-A017-A53FD89CDFCF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F1F4356-A314-4C99-A017-A53FD89CDFCF}.Debug|Win32.Build.0 = Debug|Win32
+		{8F1F4356-A314-4C99-A017-A53FD89CDFCF}.Release|Win32.ActiveCfg = Release|Win32
+		{8F1F4356-A314-4C99-A017-A53FD89CDFCF}.Release|Win32.Build.0 = Release|Win32
+		{E49F1547-6D4B-4AE0-91B7-88DED548FC16}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E49F1547-6D4B-4AE0-91B7-88DED548FC16}.Debug|Win32.Build.0 = Debug|Win32
+		{E49F1547-6D4B-4AE0-91B7-88DED548FC16}.Release|Win32.ActiveCfg = Release|Win32
+		{E49F1547-6D4B-4AE0-91B7-88DED548FC16}.Release|Win32.Build.0 = Release|Win32
+		{C8189A51-1F99-424D-A490-E93E422EF80D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C8189A51-1F99-424D-A490-E93E422EF80D}.Debug|Win32.Build.0 = Debug|Win32
+		{C8189A51-1F99-424D-A490-E93E422EF80D}.Release|Win32.ActiveCfg = Release|Win32
+		{C8189A51-1F99-424D-A490-E93E422EF80D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

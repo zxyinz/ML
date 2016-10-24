@@ -13,5 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\ProblemSet">
+      <UniqueIdentifier>{e0ea13ce-f767-4950-af1a-968f7b150a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProblemSet">
+      <UniqueIdentifier>{190a212c-7551-4b05-b8c1-5f4bc8d8f91e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\DecisionTreeLearningProblem.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\DNNTrainingDataPreProcessing.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\GeneticAlgorithmLearningProblem.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+    <ClInclude Include="ProblemSet\ProblemUIFunc.h">
+      <Filter>Header Files\ProblemSet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet\DecisionTreeLearningProblem.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet\GeneticAlgorithmLearningProblem.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="ProblemSet\ProblemUIFunc.cpp">
+      <Filter>Source Files\ProblemSet</Filter>
+    </ClCompile>
+    <ClCompile Include="SanMachineLearning_Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

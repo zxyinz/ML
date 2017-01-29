@@ -43,9 +43,6 @@
     <Filter Include="Source Files\ProblemSet">
       <UniqueIdentifier>{eae5f7d6-0145-4554-ad1e-8d2c1b99b08a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\DataSet">
-      <UniqueIdentifier>{df86acb3-1767-4fd1-a1ad-16d12b4eb31d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Device">
       <UniqueIdentifier>{4af712d9-d2fd-4e12-a51c-90ad38cc130f}</UniqueIdentifier>
     </Filter>
@@ -224,79 +221,5 @@
     <ClCompile Include="SanMachineLearning_Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="DataSet\TicTacToeTrainingDataSet.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids_adj-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids_adj-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids_adj-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids_con-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids_con-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids_con-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ids-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\iris-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\iris-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\iris-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\restaurant-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\restaurant-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\restaurant-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ta.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\tennis-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\tennis-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\tennis-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\tt.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ttt-attr.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ttt-test.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
-    <Text Include="DataSet\ttt-train.txt">
-      <Filter>Header Files\DataSet</Filter>
-    </Text>
   </ItemGroup>
 </Project>

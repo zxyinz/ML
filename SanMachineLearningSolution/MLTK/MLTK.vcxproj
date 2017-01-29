@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CE4E51E5-984B-428C-B10A-CB363A666F80}</ProjectGuid>
     <RootNamespace>SanOpenSourceMachineLearningProj</RootNamespace>
-    <ProjectName>SanMachineLearningProj</ProjectName>
+    <ProjectName>MLTK</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -137,32 +137,6 @@
     <ClCompile Include="ProblemSet\GeneticAlgorithmLearningProblem.cpp" />
     <ClCompile Include="ProblemSet\ProblemUIFunc.cpp" />
     <ClCompile Include="ProblemSet\TicTacToeLinearLearningProblem.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="DataSet\ids-attr.txt" />
-    <Text Include="DataSet\ids-test.txt" />
-    <Text Include="DataSet\ids-train.txt" />
-    <Text Include="DataSet\ids_adj-attr.txt" />
-    <Text Include="DataSet\ids_adj-test.txt" />
-    <Text Include="DataSet\ids_adj-train.txt" />
-    <Text Include="DataSet\ids_con-attr.txt" />
-    <Text Include="DataSet\ids_con-test.txt" />
-    <Text Include="DataSet\ids_con-train.txt" />
-    <Text Include="DataSet\iris-attr.txt" />
-    <Text Include="DataSet\iris-test.txt" />
-    <Text Include="DataSet\iris-train.txt" />
-    <Text Include="DataSet\restaurant-attr.txt" />
-    <Text Include="DataSet\restaurant-test.txt" />
-    <Text Include="DataSet\restaurant-train.txt" />
-    <Text Include="DataSet\ta.txt" />
-    <Text Include="DataSet\tennis-attr.txt" />
-    <Text Include="DataSet\tennis-test.txt" />
-    <Text Include="DataSet\tennis-train.txt" />
-    <Text Include="DataSet\TicTacToeTrainingDataSet.txt" />
-    <Text Include="DataSet\tt.txt" />
-    <Text Include="DataSet\ttt-attr.txt" />
-    <Text Include="DataSet\ttt-test.txt" />
-    <Text Include="DataSet\ttt-train.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

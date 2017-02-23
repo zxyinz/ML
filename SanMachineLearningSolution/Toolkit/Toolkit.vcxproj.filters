@@ -147,6 +147,9 @@
     <ClInclude Include="ProblemSet\GeneticAlgorithmLearningProblem.h">
       <Filter>Header Files\ProblemSet</Filter>
     </ClInclude>
+    <ClInclude Include="ML\cDataSet.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\cVectorManager.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="SanMachineLearning_Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\cDataSet.cpp">
+      <Filter>Source Files\ML</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

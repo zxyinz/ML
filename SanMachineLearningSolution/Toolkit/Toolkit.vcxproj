@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CE4E51E5-984B-428C-B10A-CB363A666F80}</ProjectGuid>
     <RootNamespace>SanOpenSourceMachineLearningProj</RootNamespace>
-    <ProjectName>MLTK</ProjectName>
+    <ProjectName>Toolkit</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -99,6 +99,7 @@
     <ClInclude Include="ML\cKMeansAlgorithm.h" />
     <ClInclude Include="ML\cLinearLearningAlgorithm.h" />
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
+    <ClInclude Include="ML\cDataSet.h" />
     <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h" />
     <ClInclude Include="ProblemSet\cTicTacToeGame.h" />
     <ClInclude Include="ProblemSet\DecisionTreeLearningProblem.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ML\cDataSet.cpp" />
     <ClCompile Include="SanMachineLearning_Main.cpp" />
     <ClCompile Include="Core\cVectorManager.cpp" />
     <ClCompile Include="Core\SanContainer.cpp" />

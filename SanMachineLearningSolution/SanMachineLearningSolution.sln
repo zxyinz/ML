@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MLTK", "MLTK\MLTK.vcxproj", "{CE4E51E5-984B-428C-B10A-CB363A666F80}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Toolkit", "Toolkit\Toolkit.vcxproj", "{CE4E51E5-984B-428C-B10A-CB363A666F80}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassificationProblemSet", "ClassificationProblemSet\ClassificationProblemSet.vcxproj", "{8F1F4356-A314-4C99-A017-A53FD89CDFCF}"
 EndProject

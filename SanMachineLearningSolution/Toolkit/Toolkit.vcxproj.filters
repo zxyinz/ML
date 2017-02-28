@@ -46,6 +46,24 @@
     <Filter Include="Source Files\Device">
       <UniqueIdentifier>{4af712d9-d2fd-4e12-a51c-90ad38cc130f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Memory">
+      <UniqueIdentifier>{64c8820a-5a04-41f6-bed4-a35bd24eef38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Container">
+      <UniqueIdentifier>{0f176ba1-d35c-429a-9600-f7ef9f93d555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Mathematics">
+      <UniqueIdentifier>{2a92779a-e45c-47d0-99b8-501c222bca92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Container">
+      <UniqueIdentifier>{f146e44e-5c4d-4dbd-b610-f7cdd3910ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Mathematics">
+      <UniqueIdentifier>{54467e84-6291-465a-a850-8db14804338f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Memory">
+      <UniqueIdentifier>{b6b8e3f3-db62-4f93-a692-79d25bc81877}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\cVectorManager.h">
@@ -150,6 +168,51 @@
     <ClInclude Include="ML\cDataSet.h">
       <Filter>Header Files\ML</Filter>
     </ClInclude>
+    <ClInclude Include="ML\cSanDataContainer.h">
+      <Filter>Header Files\ML</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\cSanMemoryManagerDef.h">
+      <Filter>Header Files\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanContainerDef.h">
+      <Filter>Header Files\Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanIterator.h">
+      <Filter>Header Files\Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanStream.h">
+      <Filter>Header Files\Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanStreamIterator.h">
+      <Filter>Header Files\Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanStreamT.h">
+      <Filter>Header Files\Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanTree.h">
+      <Filter>Header Files\Core\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\Matrix.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\SanMathematicsDef.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\SanMathematicsMatrix.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\SanMathematicsVector.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\SanMathematicsVectorT.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\Tensor.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Mathematics\Vector.h">
+      <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\cVectorManager.cpp">
@@ -226,6 +289,24 @@
     </ClCompile>
     <ClCompile Include="ML\cDataSet.cpp">
       <Filter>Source Files\ML</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Container\SanStream.cpp">
+      <Filter>Source Files\Core\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Mathematics\Matrix.cpp">
+      <Filter>Source Files\Core\Mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Mathematics\SanMathematicsMatrix.cpp">
+      <Filter>Source Files\Core\Mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Mathematics\SanMathematicsVector.cpp">
+      <Filter>Source Files\Core\Mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Mathematics\Tensor.cpp">
+      <Filter>Source Files\Core\Mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Mathematics\Vector.cpp">
+      <Filter>Source Files\Core\Mathematics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -77,12 +77,11 @@
   <ItemGroup>
     <ClInclude Include="Core\Container\SanContainerDef.h" />
     <ClInclude Include="Core\Container\SanIterator.h" />
+    <ClInclude Include="Core\Container\SanPair.h" />
     <ClInclude Include="Core\Container\SanStream.h" />
     <ClInclude Include="Core\Container\SanStreamIterator.h" />
     <ClInclude Include="Core\Container\SanStreamT.h" />
     <ClInclude Include="Core\Container\SanTree.h" />
-    <ClInclude Include="Core\cVectorManager.h" />
-    <ClInclude Include="Core\cVectorManagerDef.h" />
     <ClInclude Include="Core\Mathematics\Matrix.h" />
     <ClInclude Include="Core\Mathematics\SanMathematicsDef.h" />
     <ClInclude Include="Core\Mathematics\SanMathematicsMatrix.h" />
@@ -91,7 +90,6 @@
     <ClInclude Include="Core\Mathematics\Tensor.h" />
     <ClInclude Include="Core\Mathematics\Vector.h" />
     <ClInclude Include="Core\Memory\cSanMemoryManagerDef.h" />
-    <ClInclude Include="Core\MsgDef.h" />
     <ClInclude Include="Core\SanContainer.h" />
     <ClInclude Include="Core\SanMathematics.h" />
     <ClInclude Include="Core\SanMemory.h" />

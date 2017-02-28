@@ -281,6 +281,5 @@ namespace San
 		return CurrentIt;
 	}
 #pragma endregion
-
 #endif
 }

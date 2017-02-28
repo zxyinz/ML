@@ -66,15 +66,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\cVectorManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\cVectorManagerDef.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\MsgDef.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Core\SanContainer.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -212,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="Core\Mathematics\Vector.h">
       <Filter>Header Files\Core\Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Container\SanPair.h">
+      <Filter>Header Files\Core\Container</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

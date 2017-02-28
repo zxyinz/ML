@@ -3,6 +3,7 @@
 //Debug State: Need test
 #include"../RenderSystem.h"
 #include"Container/SanContainerDef.h"
+#include"Container/SanPair.h"
 #include"Container/SanIterator.h"
 #include"Container/SanStream.h"
 #include"Container/SanTree.h"

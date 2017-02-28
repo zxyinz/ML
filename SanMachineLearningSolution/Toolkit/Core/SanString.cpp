@@ -21,7 +21,7 @@ wstring San::gloAToW(const sachar* pString,int StringLength)
 		return strDestString;
 	}
 	swchar *pBuffer = new swchar[StringLength + 1];
-	::gloMemSet(pBuffer, 0, sizeof(pBuffer));
+	cSanMemoryFuncSet::iMemSet(pBuffer, 0, sizeof(pBuffer));
 	::MultiByteToWideChar(CP_ACP, 0, pString, -1, pBuffer, StringLength + 1);
 	strDestString=pBuffer;
 	delete[] pBuffer;
@@ -49,7 +49,7 @@ string San::gloWToA(const swchar* pString,int StringLength,const sachar DefaultC
 		return strDestString;
 	}
 	sachar *pBuffer = new sachar[StringLength + 1];
-	::gloMemSet(pBuffer,0,sizeof(pBuffer));
+	cSanMemoryFuncSet::iMemSet(pBuffer, 0, sizeof(pBuffer));
 	::WideCharToMultiByte(CP_ACP, 0, pString, -1, pBuffer, StringLength + 1, &DefaultChar, &bUseDefaultChar);
 	strDestString=pBuffer;
 	delete[] pBuffer;

@@ -113,6 +113,15 @@
     <ClInclude Include="ML\cRestrictedBoltzmannMachineAlgorithm.h" />
     <ClInclude Include="ML\cDataSet.h" />
     <ClInclude Include="ML\cSanDataContainer.h" />
+    <ClInclude Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm_v2.h" />
+    <ClInclude Include="ML\NeuralNetwork\cDeepNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\NeuralNetwork\cForwardNeuralNetworkAlgorithm.h" />
+    <ClInclude Include="ML\NeuralNetwork\cRestrictedBoltzmannMachineAlgorithm.h" />
+    <ClInclude Include="ML\NeuralNetwork\Node\cConvNode.h" />
+    <ClInclude Include="ML\NeuralNetwork\Node\cLogisticNode.h" />
+    <ClInclude Include="ML\NeuralNetwork\Node\cNeuralNode.h" />
+    <ClInclude Include="ML\NeuralNetwork\Node\cSigmoidNode.h" />
     <ClInclude Include="ProblemSet\ArtificialNeuralNetworkLearningProblem.h" />
     <ClInclude Include="ProblemSet\cTicTacToeGame.h" />
     <ClInclude Include="ProblemSet\DecisionTreeLearningProblem.h" />
@@ -131,8 +140,16 @@
     <ClCompile Include="Core\Mathematics\Tensor.cpp" />
     <ClCompile Include="Core\Mathematics\Vector.cpp" />
     <ClCompile Include="ML\cDataSet.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm_v2.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\cDeepNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\cForwardNeuralNetworkAlgorithm.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\cRestrictedBoltzmannMachineAlgorithm.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\Node\cConvNode.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\Node\cLogisticNode.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\Node\cNeuralNode.cpp" />
+    <ClCompile Include="ML\NeuralNetwork\Node\cSigmoidNode.cpp" />
     <ClCompile Include="SanMachineLearning_Main.cpp" />
-    <ClCompile Include="Core\cVectorManager.cpp" />
     <ClCompile Include="Core\SanContainer.cpp" />
     <ClCompile Include="Core\SanMathematics.cpp" />
     <ClCompile Include="Core\SanMemory.cpp" />
@@ -158,6 +175,10 @@
     <ClCompile Include="ProblemSet\GeneticAlgorithmLearningProblem.cpp" />
     <ClCompile Include="ProblemSet\ProblemUIFunc.cpp" />
     <ClCompile Include="ProblemSet\TicTacToeLinearLearningProblem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ML\NeuralNetwork\CMakeLists.txt" />
+    <Text Include="ML\NeuralNetwork\Node\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

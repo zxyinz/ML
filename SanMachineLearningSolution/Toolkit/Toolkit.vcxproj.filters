@@ -64,6 +64,24 @@
     <Filter Include="Source Files\Core\Memory">
       <UniqueIdentifier>{b6b8e3f3-db62-4f93-a692-79d25bc81877}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ML\NeuralNetwork">
+      <UniqueIdentifier>{dcb363c1-8597-444f-9159-1da36573ce69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ML\NeuralNetwork\Node">
+      <UniqueIdentifier>{6aa65396-1131-445d-8f89-5e0367d112e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ML\NeuralNetwork\Layer">
+      <UniqueIdentifier>{e1a1675c-3c71-45a6-8159-101959f36925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ML\NeuralNetwork">
+      <UniqueIdentifier>{002641af-6022-4ac7-9dbf-b2d171a97036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ML\NeuralNetwork\Node">
+      <UniqueIdentifier>{c0af98bd-6546-43e1-b882-f267bfc7f800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ML\NeuralNetwork\Layer">
+      <UniqueIdentifier>{c51d1b71-6c54-42b3-8c24-47018c6d812b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\SanContainer.h">
@@ -207,11 +225,35 @@
     <ClInclude Include="Core\Container\SanPair.h">
       <Filter>Header Files\Core\Container</Filter>
     </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm.h">
+      <Filter>Header Files\ML\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm_v2.h">
+      <Filter>Header Files\ML\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\cDeepNeuralNetworkAlgorithm.h">
+      <Filter>Header Files\ML\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\cForwardNeuralNetworkAlgorithm.h">
+      <Filter>Header Files\ML\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\cRestrictedBoltzmannMachineAlgorithm.h">
+      <Filter>Header Files\ML\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\Node\cConvNode.h">
+      <Filter>Header Files\ML\NeuralNetwork\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\Node\cLogisticNode.h">
+      <Filter>Header Files\ML\NeuralNetwork\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\Node\cNeuralNode.h">
+      <Filter>Header Files\ML\NeuralNetwork\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="ML\NeuralNetwork\Node\cSigmoidNode.h">
+      <Filter>Header Files\ML\NeuralNetwork\Node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\cVectorManager.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Core\SanContainer.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -302,5 +344,40 @@
     <ClCompile Include="Core\Mathematics\Vector.cpp">
       <Filter>Source Files\Core\Mathematics</Filter>
     </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm.cpp">
+      <Filter>Source Files\ML\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\cArtificialNeuralNetworkAlgorithm_v2.cpp">
+      <Filter>Source Files\ML\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\cDeepNeuralNetworkAlgorithm.cpp">
+      <Filter>Source Files\ML\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\cForwardNeuralNetworkAlgorithm.cpp">
+      <Filter>Source Files\ML\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\cRestrictedBoltzmannMachineAlgorithm.cpp">
+      <Filter>Source Files\ML\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\Node\cConvNode.cpp">
+      <Filter>Source Files\ML\NeuralNetwork\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\Node\cLogisticNode.cpp">
+      <Filter>Source Files\ML\NeuralNetwork\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\Node\cNeuralNode.cpp">
+      <Filter>Source Files\ML\NeuralNetwork\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="ML\NeuralNetwork\Node\cSigmoidNode.cpp">
+      <Filter>Source Files\ML\NeuralNetwork\Node</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ML\NeuralNetwork\Node\CMakeLists.txt">
+      <Filter>Header Files\ML\NeuralNetwork\Node</Filter>
+    </Text>
+    <Text Include="ML\NeuralNetwork\CMakeLists.txt">
+      <Filter>Header Files\ML\NeuralNetwork</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -47,11 +47,11 @@ bool cGARuleSet::_CrossoverSP(const cGeneticAlgorithmHypothesis<SString, SString
 	H1Index = H1Index*pH1->m_Desc.PerRuleLength + Offset;
 	H2Index = H2Index*pH1->m_Desc.PerRuleLength + Offset;
 
-	pO1->m_RuleSet.iSetStream(0, pH1->m_RuleSet.pStream, H1Index);
-	pO1->m_RuleSet.iSetStream(H1Index, pH2->m_RuleSet.pStream + H2Index, pH2->m_RuleSet.Size - H2Index);
+	pO1->m_RuleSet.iSetStream(0, pH1->m_RuleSet.iGetPtr(), H1Index);
+	pO1->m_RuleSet.iSetStream(H1Index, pH2->m_RuleSet.iGetPtr() + H2Index, pH2->m_RuleSet.iGetSize() - H2Index);
 
-	pO2->m_RuleSet.iSetStream(0, pH2->m_RuleSet.pStream, H2Index);
-	pO2->m_RuleSet.iSetStream(H2Index, pH1->m_RuleSet.pStream + H1Index, pH1->m_RuleSet.Size - H1Index);
+	pO2->m_RuleSet.iSetStream(0, pH2->m_RuleSet.iGetPtr(), H2Index);
+	pO2->m_RuleSet.iSetStream(H2Index, pH1->m_RuleSet.iGetPtr() + H1Index, pH1->m_RuleSet.iGetSize() - H1Index);
 
 	pO1->_CalcDefaultPredict();
 	pO2->_CalcDefaultPredict();
@@ -175,7 +175,8 @@ bool cGARuleSet::iInitialize(const uint32 Index, const GARULEDESC &Desc, const G
 	this->m_Desc.AttributeLength = this->m_Desc.PerRuleLength;
 	this->m_Desc.PerRuleLength = this->m_Desc.PerRuleLength + this->m_Desc.ResultArray.size();
 	this->m_RuleSet.iReSizeStream(this->m_Desc.RuleSetSize*this->m_Desc.PerRuleLength);
-	this->m_RuleSet.iClear(false);
+	this->m_RuleSet.iSetStream(false);
+
 	for (uint32 seek = 0; seek < this->m_Desc.RuleSetSize; seek = seek + 1)
 	{
 		uint32 Offset = seek*this->m_Desc.PerRuleLength;

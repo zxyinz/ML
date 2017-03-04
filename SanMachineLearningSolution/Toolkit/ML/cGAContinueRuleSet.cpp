@@ -47,11 +47,11 @@ bool cGAContinueRuleSet::_CrossoverSP(const cGeneticAlgorithmHypothesis<SString,
 	H1Index = H1Index*pH1->m_Desc.PerRuleLength + Offset;
 	H2Index = H2Index*pH1->m_Desc.PerRuleLength + Offset;
 
-	pO1->m_RuleSet.iSetStream(0, pH1->m_RuleSet.pStream, H1Index);
-	pO1->m_RuleSet.iSetStream(H1Index, pH2->m_RuleSet.pStream + H2Index, pH2->m_RuleSet.Size - H2Index);
+	pO1->m_RuleSet.iSetStream(0, pH1->m_RuleSet.iGetPtr(), H1Index);
+	pO1->m_RuleSet.iSetStream(H1Index, pH2->m_RuleSet.iGetPtr() + H2Index, pH2->m_RuleSet.iGetSize() - H2Index);
 
-	pO2->m_RuleSet.iSetStream(0, pH2->m_RuleSet.pStream, H2Index);
-	pO2->m_RuleSet.iSetStream(H2Index, pH1->m_RuleSet.pStream + H1Index, pH1->m_RuleSet.Size - H1Index);
+	pO2->m_RuleSet.iSetStream(0, pH2->m_RuleSet.iGetPtr(), H2Index);
+	pO2->m_RuleSet.iSetStream(H2Index, pH1->m_RuleSet.iGetPtr() + H1Index, pH1->m_RuleSet.iGetSize() - H1Index);
 
 	pO1->_CalcDefaultPredict();
 	pO2->_CalcDefaultPredict();//*/
@@ -140,14 +140,14 @@ bool cGAContinueRuleSet::_CrossoverTP(const cGeneticAlgorithmHypothesis<SString,
 	pO2->m_RuleSet.iReSizeStream(pO2->m_Desc.RuleSetSize*pO2->m_Desc.PerRuleLength);
 
 	//Generate output hypothesis1
-	pO1->m_RuleSet.iSetStream(0, pH1->m_RuleSet.pStream, H1Index[0]);
-	pO1->m_RuleSet.iSetStream(H1Index[0], pH2->m_RuleSet.pStream + H2Index[0], H2Index[1] - H2Index[0]);
-	pO1->m_RuleSet.iSetStream(H1Index[0] + H2Index[1] - H2Index[0], pH1->m_RuleSet.pStream + H1Index[1], pH1->m_RuleSet.Size - H1Index[1]);
+	pO1->m_RuleSet.iSetStream(0, pH1->m_RuleSet.iGetPtr(), H1Index[0]);
+	pO1->m_RuleSet.iSetStream(H1Index[0], pH2->m_RuleSet.iGetPtr() + H2Index[0], H2Index[1] - H2Index[0]);
+	pO1->m_RuleSet.iSetStream(H1Index[0] + H2Index[1] - H2Index[0], pH1->m_RuleSet.iGetPtr() + H1Index[1], pH1->m_RuleSet.iGetSize() - H1Index[1]);
 
 	//Generate output hypothesis2
-	pO2->m_RuleSet.iSetStream(0, pH2->m_RuleSet.pStream, H2Index[0]);
-	pO2->m_RuleSet.iSetStream(H2Index[0], pH1->m_RuleSet.pStream + H1Index[0], H1Index[1] - H1Index[0]);
-	pO2->m_RuleSet.iSetStream(H2Index[0] + H1Index[1] - H1Index[0], pH2->m_RuleSet.pStream + H2Index[1], pH2->m_RuleSet.Size - H2Index[1]);
+	pO2->m_RuleSet.iSetStream(0, pH2->m_RuleSet.iGetPtr(), H2Index[0]);
+	pO2->m_RuleSet.iSetStream(H2Index[0], pH1->m_RuleSet.iGetPtr() + H1Index[0], H1Index[1] - H1Index[0]);
+	pO2->m_RuleSet.iSetStream(H2Index[0] + H1Index[1] - H1Index[0], pH2->m_RuleSet.iGetPtr() + H2Index[1], pH2->m_RuleSet.iGetSize() - H2Index[1]);
 
 	pO1->_CalcDefaultPredict();
 	pO2->_CalcDefaultPredict();//*/
@@ -290,7 +290,7 @@ bool cGAContinueRuleSet::iInitialize(const uint32 Index, const GACONTINUERULEDES
 	this->m_Desc.AttributeLength = 16 * this->m_Desc.AttributeArray.size(); // 2bit operator and 8*2 bit number
 	this->m_Desc.PerRuleLength = this->m_Desc.AttributeLength + this->m_Desc.ResultArray.size();
 	this->m_RuleSet.iReSizeStream(this->m_Desc.RuleSetSize*this->m_Desc.PerRuleLength);
-	this->m_RuleSet.iClear(false);
+	this->m_RuleSet.iSetStream(false);
 
 	for (uint32 seek = 0; seek < this->m_Desc.RuleSetSize; seek = seek + 1)
 	{
